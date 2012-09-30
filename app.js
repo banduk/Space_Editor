@@ -21,12 +21,18 @@ function authorize(user, pw) {
   userIsOk |= (user === 'user' && pw === 'password');
   return userIsOk;
 }
-var app  = express.createServer();
+var app  = express();
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+io.configure(function () {
+    io.set("transports", [ "htmlfile", "xhr-polling", "jsonp-polling", "flashsocket" ]);
+});
 app.use(express.bodyParser());
 app.use(express.cookieParser());
 app.use(express.session({ 
   secret: "a very secret secret",
-  store:  new express.session.MemoryStore,  
+  store:  new express.session.MemoryStore(),
   cookie: {  
     path     : '/',
     httpOnly : true,
@@ -55,67 +61,14 @@ app.get('/',function(req,res,next){
   req.url = "index.html";
   staticProvider(req, res, next);
 });
-var port = process.env.PORT || 3149;
-app.listen(port); 
  
-var EDITABLE_APPS_DIR = "/APPS/"; 
+var EDITABLE_APPS_DIR = "apps/";
 var ENABLE_LAUNCH     = false;
-
-// -----------------------------------------------------
-// for demo clean-up (remove if this gives you problems)
-var REPLACE_SANDBOX_APP_DEMO_FILES = true;
-if(REPLACE_SANDBOX_APP_DEMO_FILES){
-  fs.copyF = function (src, dst, cb) {
-    function copy(err) {
-      var is
-        , os
-        ;
-  
-      if (!err) {
-        return cb(new Error("File " + dst + " exists."));
-      }
-  
-      fs.stat(src, function (err) {
-        if (err) {
-          return cb(err);
-        }
-        is = fs.createReadStream(src);
-        os = fs.createWriteStream(dst);
-        util.pump(is, os, cb);
-      });
-    }
-    fs.stat(dst, copy);
-  };
-  fs.unlinkSync(EDITABLE_APPS_DIR+"SandboxApp/app.js");
-  fs.copyF(__dirname+"/app.js", EDITABLE_APPS_DIR+"SandboxApp/app.js", function(err){
-    if(err){
-      console.log(err);
-    }else{
-      console.log("copied app.js to SandboxApp");
-    }
-  });
-  fs.unlinkSync(EDITABLE_APPS_DIR+"SandboxApp/public/index.less");
-  fs.copyF(__dirname+"/public/index.css", EDITABLE_APPS_DIR+"SandboxApp/public/index.less", function(err){
-    if(err){
-      console.log(err);
-    }else{
-      console.log("copied public/index.less to SandboxApp");
-    }
-  });
-  fs.unlinkSync(EDITABLE_APPS_DIR+"SandboxApp/public/index.js");
-  fs.copyF(__dirname+"/public/editFile.js", EDITABLE_APPS_DIR+"SandboxApp/public/index.js", function(err){
-  if(err){
-    console.log(err);
-  }else{
-    console.log("copied public/index.js to SandboxApp");
-  }
-});
-}
-// end of demo clean-up section.
-// ------------------------------------------------------
+var port = process.env.PORT || 3149;
+server.listen(port);
 
 var thisAppDirName = __dirname.substring(__dirname.lastIndexOf("/")+1);
-var teamID = "SandboxApp";
+var teamID = "team";
 // ------------------------------------------------------------
 // ------------------------------------------------------------
 // TODO: check credentials before doing any of these GET/POST...
@@ -418,7 +371,7 @@ app.get("/allUsersEditingProjects", function(req, res){
 // ------------------------------------------------------------
 var localFileIsMostRecent = []; // an array of flags indicating if the file has been modified since last save.
 var nowjs     = require("now");
-var everyone  = nowjs.initialize(app);
+var everyone  = nowjs.initialize(server, {socketio: {"transports": [ "htmlfile", "xhr-polling", "jsonp-polling", "flashsocket" ]}});
 // ------ REALTIME NOWJS COLLABORATION ------
 //var nowcollab = require("../CHAOS/nowcollab");
 //nowcollab.initialize(nowjs, everyone, true);
@@ -426,7 +379,7 @@ var everyone  = nowjs.initialize(app);
 nowjs.on('connect', function () { 
   //console.log("CONNECT    > " + this.user.clientId);
   this.user.teamID      = teamID;
-  if(this.now.teamID != ''){
+  if(this.now.teamID !== ''){
     this.user.teamID = this.now.teamID;
   }
   //console.log(this.user);
@@ -446,6 +399,7 @@ nowjs.on('connect', function () {
   addUserToFileGroup(this.user, ""); // the blank file group is the the team group.
   this.now.c_confirmProject(this.user.teamID);
 });
+
 nowjs.on('disconnect', function () {
   //console.log("DISCONNECT > "+this.user.clientId+" >> "+this.user.about.name+" <"+this.user.about.email+">"); 
   //console.log("DISCONNECT > "+this.user.clientId+" >> "+this.now.name); 
@@ -460,7 +414,7 @@ nowjs.on('disconnect', function () {
     }
   }
   // finally, remove the user from the team group. (don't need this now since team is also in user.grouplist)
-  teamgroup.now.c_processUserEvent("leave", this.user.clientId, this.now.name);
+//  teamgroup.now.c_processUserEvent("leave", this.user.clientId, this.now.name);
 });
 //---------
 // NOW: Remote collab messages.
@@ -744,7 +698,7 @@ function localRepoFetchGitLog(userObj, gitRepoPath, fname, fetcherCallback) {
       var out = [];
       for(var i=0; i<logLines.length; i++){
         var line = logLines[i];
-        if(line.indexOf("commit") == 0){
+        if(line.indexOf("commit") === 0){
           // new entry.. first check if we've hit max entries
           if(out.length >= maxResults){
             break;
@@ -754,22 +708,22 @@ function localRepoFetchGitLog(userObj, gitRepoPath, fname, fetcherCallback) {
           saveThisEntry = true;
         }
         if(saveThisEntry){
-          if(line.indexOf("aname") == 0){
+          if(line.indexOf("aname") === 0){
             out[out.length-1]['auth_name'] = line.substring(8);
           }
-          if(line.indexOf("amail") == 0){
+          if(line.indexOf("amail") === 0){
             out[out.length-1]['auth_email'] = line.substring(8);
           }
-          if(line.indexOf("rdate") == 0){
+          if(line.indexOf("rdate") === 0){
             out[out.length-1]['time_relative'] = line.substring(8);
           }
-          if(line.indexOf("utime") == 0){
+          if(line.indexOf("utime") === 0){
             out[out.length-1]['time_epoch'] = line.substring(8);
           }
-          if(line.indexOf("cnote") == 0){
+          if(line.indexOf("cnote") === 0){
             var comment = line.substring(8);
             out[out.length-1]['comment'] = comment;
-            if(filter != null){
+            if(filter !== null){
               if(comment.indexOf(filter) < 0){
                 out.pop();
                 saveThisEntry = false;
@@ -1135,7 +1089,10 @@ var Utf8 = {
   decode : function (utftext) { // public method for url decoding
     var string = "";
     var i = 0;
-    var c = c1 = c2 = 0;
+    var c;
+    var c1;
+    var c2;
+    c = c1 = c2 = 0;
     while ( i < utftext.length ) {
       c = utftext.charCodeAt(i);
       if (c < 128) {
@@ -1156,7 +1113,7 @@ var Utf8 = {
     }
     return string;
   }
-}
+};
 
 function occurrences(string, substring){
   var n=0;

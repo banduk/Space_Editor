@@ -1288,9 +1288,10 @@ now.ready(function(){
   var specifiedFileToOpen = getURLHashVariable("fname");
   if(specifiedFileToOpen){
     openFileFromServer(specifiedFileToOpen, true);
-  }else{
-    openFileFromServer("app.js", true);
   }
+  /*else{
+    openFileFromServer("app.js", true);
+  }*/
   now.s_getAllProjectsFiles(function(err, filesAndInfo){
     updateFileBrowserFromFileList(filesAndInfo);
   });

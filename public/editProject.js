@@ -819,17 +819,22 @@ function setupJoin(j){
 // ---------------------------------------------------------
 // READY! :)
 // ---------------------------------------------------------
-var PROJECT = "SandboxApp";
+var PROJECT = "project1";
 $(window).ready(function() {
   var getProject = getURLGetVariable("project");
   if(getProject){
    PROJECT = getProject;
   }
   document.title = PROJECT;
-  populateEditPane($("#pane_0"), "public/index.less");
-  populateEditPane($("#pane_1"), "app.js");
+  //populateEditPane($("#pane_0"), "public/index.less");
+  //populateEditPane($("#pane_1"), "app.js");
   //populateEditPane($("#pane_2"), "");
-  populateEditPane($("#pane_2"), "public/index.js"); 
+  //populateEditPane($("#pane_2"), "public/index.js"); 
+
+  populateEditPane($("#pane_0"), "");
+  populateEditPane($("#pane_1"), "");
+  populateEditPane($("#pane_2"), ""); 
+
   
   $(".join").each(function(index, el){
     setupJoin(el);
@@ -855,7 +860,7 @@ $(window).ready(function() {
   });
   */
   
-  setTimeout(function(){alert("\nWelcome to Space!\n\nSpace is a real-time, collaborative code editor created by the Chaos Collective.\n\nWhen other users are online, you'll see their cursors directly in the code. Click the button at the bottom left to open the file browser and see where users are.\n\nGo forth, explore Space, and write some code with your friends!")}, 5000);
+  //setTimeout(function(){alert("\nWelcome to Space!\n\nSpace is a real-time, collaborative code editor created by the Chaos Collective.\n\nWhen other users are online, you'll see their cursors directly in the code. Click the button at the bottom left to open the file browser and see where users are.\n\nGo forth, explore Space, and write some code with your friends!")}, 5000);
 });
 
 
