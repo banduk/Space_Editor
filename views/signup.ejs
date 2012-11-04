@@ -1,0 +1,26 @@
+
+<% var title = 'Signup' %>
+<% include head %>
+
+<h1>Signup</h1>
+<%- message %>
+
+<form method="post" action="/signup">
+  <p>
+    <label>Name:</label>
+    <input type="text" name="name">
+  </p>
+  <p>
+    <label>Username:</label>
+    <input type="text" name="username">
+  </p>
+  <p>
+    <label>Password:</label>
+    <input type="text" name="password">
+  </p>
+  <p>
+    <input type="submit" value="Login">
+  </p>
+</form>
+
+<% include foot %>
