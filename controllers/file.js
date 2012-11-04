@@ -1,3 +1,6 @@
+var fs          = require('fs'),
+    occurrences = require('./util').occurrences;
+
 //
 // local file stuff
 //

@@ -16,7 +16,9 @@ function authenticate(name, pass, fn) {
   // found the user
   hash(pass, usr.salt, function(err, hash){
     if (err) return fn(err);
-    if (hash == usr.hash) return fn(null, usr);
+    if (hash == usr.hash) {
+      return fn(null, usr);
+    }
     fn(new Error('invalid password'));
   });
 }
@@ -77,7 +79,8 @@ function doAuthenticate(req, res, user){
     + ' click to <a href="/logout">logout</a>. '
     + ' You may now access <a href="/restricted">/restricted</a>.';
 
+    console.log("Authenticated: " + user.name);
     // TODO: remove password =D
-    res.cookie("user", user);
+    res.cookie("_username", user.name);
     res.redirect("/?project=project1");
 }

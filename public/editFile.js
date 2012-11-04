@@ -2,7 +2,7 @@
 // Right-click context menu plugin for jQuery...
 // -----------------------------------------
 (function ($) {
-  /**
+/**
    * @author corey aufang (with many modifications by seewhatsticks dev team)
    * @version 1.0.1
    */
@@ -34,7 +34,7 @@
     $(container).hide().attr('id', 'conmenu').css('position', 'absolute').appendTo(document.body);
     $(marker).hide().attr('id', 'conmenuMarker').css('position', 'absolute').appendTo(document.body);
   });
-  
+
   function mouseDownGrabber(clickEvent){
   clickEvent.stopPropagation();
     resetMenu();
@@ -97,7 +97,7 @@
 // -----------------------------------------
 (function($){
   $.fn.disableSelection = function() {
-    return this.each(function() {           
+    return this.each(function() {
     $(this).attr('unselectable', 'on').css({
       '-moz-user-select':'none',
       '-webkit-user-select':'none',
@@ -108,6 +108,7 @@
   });
 };
 })(jQuery);
+
 // -----------------------------------------
 // Editor
 // -----------------------------------------
@@ -122,7 +123,7 @@ var NOTIFICATION_TIMEOUT       = 10000;
 var autoCheckStep              = 0;
 function ifOnlineLetCollaboratorsKnowImHere(){
   if(!nowIsOnline){
-    return; 
+    return;
   }
   var range = editor.getSelectionRange();
   now.s_sendCursorUpdate(infile, range, true);
@@ -217,24 +218,24 @@ var updateWithDiffPatchesLocal = function(id, patches, md5){
   patchingInProcess = true;
   var t = (new Date()).getTime();
   if(id != now.core.clientId){
-    console.log("patching from user: " + id + ", md5=" + md5); 
+    console.log("patching from user: " + id + ", md5=" + md5);
     //console.log("PATCHES");
     //console.log(patches);
-    
+
     var currentText = editor.getSession().getValue();
     var localChangeJustSent = sendTextChange(); // make sure we send any outstanding changes before we apply remote patches.
-    
+
     var results = dmp.patch_apply(patches, currentText);
     var newText = results[0];
-    
+
     // TODO: get text around cursor and then use it later for a fuzzy-match to keep it in the same spot.
     //console.log("DIFF TO DELTAS");
     var diff = dmp.diff_main(currentText, newText);
     var deltas = dmp.diff_toDelta(diff).split("\t");
     //console.log(deltas);
-    
+
     var doc = editor.getSession().doc;
-    
+
     //
     // COMPUTE THE DIFF FROM THE PATCH AND ACTUALLY INSERT/DELETE TEXT VIA THE EDITOR (AUTO TRACKS CURSOR, AND DOESN'T RESET THE ENTIRE TEXT FIELD).
     //
@@ -303,18 +304,18 @@ var updateWithDiffPatchesLocal = function(id, patches, md5){
                   text: data
               };
           aceDeltas.push(aceDelta);
-          //console.log("ended at row="+row+" col="+col);      
+          //console.log("ended at row="+row+" col="+col);
           offset += delLen;
           break;
         }
       }
     }
-    
+
     ignoreAceChange = true;
     doc.applyDeltas(aceDeltas);
     previousText = newText;
     ignoreAceChange = false;
-    
+
     if(!localChangeJustSent && (t - timeOfLastLocalChange) > 2000){
       //console.log("no local changes have been made in a couple seconds >> md5 should match..");
       var newMD5 = Crypto.MD5(newText);
@@ -352,6 +353,7 @@ var updateWithDiffPatchesLocal = function(id, patches, md5){
 // Now.JS Client-side functions.
 // -----------------------------------------
 var userColorMap = ["#9DDC23", "#00FFFF", "#FF308F", "#FFD400", "#FF0038", "#7C279B", "#FF4E00", "#6C8B1B", "#0A869B"];
+
 now.c_updateCollabCursor    = function(id, name, range, changedByUser){
   if(id == now.core.clientId){
     return;
@@ -364,7 +366,7 @@ now.c_updateCollabCursor    = function(id, name, range, changedByUser){
     cInfo['name'] = name;
     // let collaborator know I'm here.
     ifOnlineLetCollaboratorsKnowImHere();
-  } 
+  }
   cInfo['timeLastSeen'] = (new Date()).getTime();
   var ses = editor.getSession();
   var rSel = Range.fromPoints(range.start, range.end);
@@ -384,9 +386,9 @@ now.c_updateCollabCursor    = function(id, name, range, changedByUser){
   var userColor = userColorMap[uid%userColorMap.length];
   cInfo['lastSelectionMarkerID'] = ses.addMarker(rSel, "collab_selection", "line", false); // range, clazz, type/fn(), inFront
   cInfo['lastCursorMarkerID']    = ses.addMarker(rCur, "collab_cursor", function(html, range, left, top, config){
-    html.push("<div class='collab_cursor' style='top: "+top+"px; left: "+left+"px; border-left-color: "+userColor+"; border-bottom-color: "+userColor+";'><div class='collab_cursor_nametag' style='background: "+userColor+";'>&nbsp;"+cInfo['name']+"&nbsp;<div class='collab_cursor_nametagFlag' style='border-right-color: "+userColor+"; border-bottom-color: "+userColor+";'></div></div>&nbsp;</div>");  
+    html.push("<div class='collab_cursor' style='top: "+top+"px; left: "+left+"px; border-left-color: "+userColor+"; border-bottom-color: "+userColor+";'><div class='collab_cursor_nametag' style='background: "+userColor+";'>&nbsp;"+cInfo['name']+"&nbsp;<div class='collab_cursor_nametagFlag' style='border-right-color: "+userColor+"; border-bottom-color: "+userColor+";'></div></div>&nbsp;</div>");
   }, false); // range, clazz, type, inFront
-  cInfo['isShown'] = true;  
+  cInfo['isShown'] = true;
 }
 now.c_updateWithDiffPatches = function(id, patches, md5){
   //console.log(patches);
@@ -516,7 +518,7 @@ now.c_confirmProject        = function(teamID){
 var infile                 = "";
 var cursorChangeTimeout    = null;
 var textChangeTimeout      = null;
-var initialFileloadTimeout = null; 
+var initialFileloadTimeout = null;
 var nowIsOnline            = false;
 var ignoreAceChange        = false;
 var openIsPending          = false;
@@ -599,8 +601,8 @@ function openFileFromServer(fname, forceOpen){
       }
     }
     $("#recentFile_0").html(infile).attr("fname", infile);
-    ignoreAceChange = true;  
-    editor.getSession().setValue(fdata.replace(/\t/g, "  ")); 
+    ignoreAceChange = true;
+    editor.getSession().setValue(fdata.replace(/\t/g, "  "));
     // TODO: Auto-fold here...
     // addFold("...", new Range(8, 44, 13, 4));
     ignoreAceChange = false;
@@ -706,7 +708,7 @@ function removeFileFromList(fname){
 function saveFileToServer(){
   saveIsPending = true;
     console.log("SAVING FILE:" + infile);
-  sendTextChange();  
+  sendTextChange();
   if(previousText == ""){
     console.log("THE FILE IS BLANK -- WHY ARE WE SAVING?!")
   }
@@ -890,7 +892,7 @@ function createNewFile(el){
     $("#newfileInputName").focus();
   }
 }
-function createNewFileFromInputs(){  
+function createNewFileFromInputs(){
   var newfname = $("#newfileInputName").val().replace(/\ /g, "_").replace(/[^a-zA-Z_\.\-0-9\/\(\)]+/g, '');
   var newftype = $("#newfileInputType").val();
   if(newfname.length > 20){
@@ -938,7 +940,7 @@ function deleteFile(fname){
 // Code Folding, Cleaning, and other auto tools...
 // ---------------------------------------------------------
 /*
-function autoFoldCode(levelToFold){ 
+function autoFoldCode(levelToFold){
   if(levelToFold === undefined){
     levelToFold = 0;
   }
@@ -979,7 +981,7 @@ function autoFoldCode(levelToFold){
         }
       }
     //}
-  } 
+  }
   console.log("Done folding code.");
 }
 function autoFoldCodeProgressive(){
@@ -1169,7 +1171,7 @@ function openShiftShiftAsDelete(fname){
   html += "<div id='shiftshiftTitle'>DELETE</div>";
   html += "<div id='shiftshiftFilename'>"+fname+"</div>";
   html += "<div id='shiftshiftBtn_Cancel' class='shiftshiftBtn' onclick='closeShiftShift();'>cancel file termination</div>";
-  html += "<div id='shiftshiftBtn_Delete' class='shiftshiftBtn' onclick='deleteFile(\""+fname+"\"); closeShiftShift();'>DELETE</div>"; 
+  html += "<div id='shiftshiftBtn_Delete' class='shiftshiftBtn' onclick='deleteFile(\""+fname+"\"); closeShiftShift();'>DELETE</div>";
   openShiftShift(html, 130, "#FF3600");
   $("#shiftshiftInputDiv input").val("").focus();
 }
@@ -1199,34 +1201,34 @@ function notifyAndAddMessageToLog(userColor, fromUserName, msg){
 // ---------------------------------------------------------
 // URL manipulation.
 // ---------------------------------------------------------
-function getURLGetVariable(variable) { 
-  var query = window.location.search.substring(1); 
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
-      return pair[1]; 
-    } 
+function getURLGetVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
+      return pair[1];
+    }
   }
   return null;
 }
 function setURLHashVariable(variable, value){
   var newQuery = "";
   var replacedExistingVar = false;
-  var query = window.location.hash.substring(1); 
+  var query = window.location.hash.substring(1);
   console.log(query);
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
     if(vars[i] == ""){
       continue;
     }
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
       pair[1] = value;
       console.log("replaced value: " + pair[0]);
       replacedExistingVar = true;
-    } 
-    newQuery += pair[0] + "=" + pair[1]; 
+    }
+    newQuery += pair[0] + "=" + pair[1];
     if(i < vars.length-1){
       newQuery += "&";
     }
@@ -1240,16 +1242,16 @@ function setURLHashVariable(variable, value){
   window.location.hash = newQuery;
 }
 function getURLHashVariable(variable){
-  var query = window.location.hash.substring(1); 
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
+  var query = window.location.hash.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
     if(vars[i] == ""){
       continue;
     }
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
       return pair[1];
-    } 
+    }
   }
   return null;
 }
@@ -1264,8 +1266,8 @@ now.ready(function(){
     window.location.reload();
   }
   nowIsOnline = true;
-  alreadyConnected = true; 
-  console.log("Using NowJS -- this clientId: " + now.core.clientId); 
+  alreadyConnected = true;
+  console.log("Using NowJS -- this clientId: " + now.core.clientId);
   now.s_sendUserEvent("join"); // let everyone know who I am!
   setInterval(ifOnlineLetCollaboratorsKnowImHere, TIME_UNTIL_GONE/3);
   var specifiedFileToOpen = getURLHashVariable("fname");
@@ -1293,12 +1295,12 @@ $(document).ready(function() {
   }else{
     now.teamID = '';
   }
-  
+
   //console.log("starting editor...");
   editor = ace.edit("editorFull");
   //console.log("EDITOR");
   //console.log(editor);
-  
+
   editor.setTheme("ace/theme/chaos");
 
   editor.getSession().setTabSize(2);
@@ -1348,13 +1350,13 @@ $(document).ready(function() {
     }
     cursorChangeTimeout = setTimeout(ifOnlineLetCollaboratorsKnowImHere, 350);
   });
-  
+
   editor.getSession().setFoldStyle("markbeginend");
-  
+
   console.log("starting...");
-  
+
   setInterval(ifOnlineVerifyCollaboratorsAreStillHere_CleanNotifications_AutoSave, 1000);
-   
+
   var lastShiftTime = 0;
   /*
   var SHIFT_SHIFT_THRESH = 300;
@@ -1373,19 +1375,15 @@ $(document).ready(function() {
   });
   */
   $("#top").disableSelection();
-  
+
   //if(Math.abs(screen.width-window.innerWidth) > 20 || Math.abs(screen.height-window.innerHeight) > 20) {
   //  document.body.webkitRequestFullScreen(true);
   //}
   //$("body")[0].webkitRequestFullScreen(true);
   //document.documentElement.webkitRequestFullScreen(true);
-  
+
   setTimeout(function(){
     console.log("editor theme hack to ensure painting...");
     editor.setTheme("ace/theme/chaos");
   }, 100);
 });
-
-
-
-

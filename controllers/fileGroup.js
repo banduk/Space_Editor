@@ -18,7 +18,7 @@ exports.addUserToFileGroup = function(userObj, fname){
     // add to local group.
     userObj.grouplist.push(groupname);
     // keep track locally of users in group.
-    usersInGroupPlusPlus(groupname);
+    this.usersInGroupPlusPlus(groupname);
     if(fname.length > 0){
       var teamgroup = nowjs.getGroup(userObj.teamID);
       teamgroup.now.c_processUserFileEvent(fname, "joinFile", userObj.clientId, usersInGroup[groupname]);
