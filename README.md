@@ -2,6 +2,20 @@
 
 Space is built on NodeJS and uses NowJS under the hood to support websockets for realtime collaboration. The editor is built on ACE (the same front-end used in Cloud9 IDE) and uses Google's diff-match-patch to send edits information to contributors as changes are made to the code.
 
+# Installation
+
+You must have [Node](http://nodejs.org/) installed.
+Just enter in the project folder and run:
+    npm update
+    npm install
+
+# Running
+
+Just enter in the project folder and run:
+    node app
+Then access your browser at http://localhost:3149
+
+
 ## Demo
 
 Try out Space for yourself on the demo site here:
