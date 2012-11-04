@@ -5,14 +5,18 @@ Space is built on NodeJS and uses NowJS under the hood to support websockets for
 # Installation
 
 You must have [Node](http://nodejs.org/) installed.
+
 Just enter in the project folder and run:
+
     npm update
     npm install
 
 # Running
 
 Just enter in the project folder and run:
+
     node app
+
 Then access your browser at http://localhost:3149
 
 
