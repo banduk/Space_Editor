@@ -20,6 +20,12 @@ Just enter in the project folder and run:
 Then access your browser at http://localhost:3149
 
 
+## Editing
+
+I added the configuration file for the excellent [Sublime Text](http://www.sublimetext.com/).
+To use, just open the file `space.sublime-project` with Sublime Text
+
+
 ## Demo
 
 Try out Space for yourself on the demo site here:
