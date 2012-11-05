@@ -34,7 +34,7 @@
     $(container).hide().attr('id', 'conmenu').css('position', 'absolute').appendTo(document.body);
     $(marker).hide().attr('id', 'conmenuMarker').css('position', 'absolute').appendTo(document.body);
   });
-  
+
   function mouseDownGrabber(clickEvent){
   clickEvent.stopPropagation();
     resetMenu();
@@ -97,7 +97,7 @@
 // -----------------------------------------
 (function($){
   $.fn.disableSelection = function() {
-    return this.each(function() {           
+    return this.each(function() {
     $(this).attr('unselectable', 'on').css({
       '-moz-user-select':'none',
       '-webkit-user-select':'none',
@@ -149,6 +149,10 @@ function populateEditPane(editPane, fname){
     $(editPane).html("<iframe src='http://logs.chaoscollective.org/live?log="+PROJECT+"'></iframe><div class='paneScreen' onmousedown='selectPaneScreen(this);'></div>");
   }
 }
+/*function populateChatPane(){
+  $("#pane_chat").html("<iframe src='chat.html'></iframe><div class='paneScreen'></div>");
+}*/
+
 function setUsersInFile(fname, usersInFile){
   for(var i=0; i<mostRecentFilesAndInfo.length; i++){
     var f = mostRecentFilesAndInfo[i];
@@ -364,7 +368,7 @@ function createNewFile(el){
     $("#newfileInputName").focus();
   }
 }
-function createNewFileFromInputs(){  
+function createNewFileFromInputs(){
   var newfname = $("#newfileInputName").val().replace(/\ /g, "_").replace(/[^a-zA-Z_\.\-0-9\/\(\)]+/g, '');
   var newftype = $("#newfileInputType").val();
   if(newfname.length > 40){
@@ -567,7 +571,7 @@ function openShiftShiftAsDelete(fname){
   html += "<div id='shiftshiftTitle'>DELETE</div>";
   html += "<div id='shiftshiftFilename'>"+fname+"</div>";
   html += "<div id='shiftshiftBtn_Cancel' class='shiftshiftBtn' onclick='closeShiftShift();'>cancel file termination</div>";
-  html += "<div id='shiftshiftBtn_Delete' class='shiftshiftBtn' onclick='deleteFile(\""+fname+"\"); closeShiftShift();'>DELETE</div>"; 
+  html += "<div id='shiftshiftBtn_Delete' class='shiftshiftBtn' onclick='deleteFile(\""+fname+"\"); closeShiftShift();'>DELETE</div>";
   openShiftShift(html, 130, "#FF3600");
   $("#shiftshiftInputDiv input").val("").focus();
 }
@@ -656,7 +660,7 @@ function loadAllProjectFiles(tryToLoadFirstFiles){
                 }
               }
             }
-          } 
+          }
         }
       }catch(ex){
         console.log("JSON fail?");
@@ -700,34 +704,34 @@ function shoutDuplicatedFile(fname, newfname){
 // ---------------------------------------------------------
 // URL manipulation.
 // ---------------------------------------------------------
-function getURLGetVariable(variable) { 
-  var query = window.location.search.substring(1); 
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
-      return pair[1]; 
-    } 
+function getURLGetVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
+      return pair[1];
+    }
   }
   return null;
 }
 function setURLHashVariable(variable, value){
   var newQuery = "";
   var replacedExistingVar = false;
-  var query = window.location.hash.substring(1); 
+  var query = window.location.hash.substring(1);
   console.log(query);
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
     if(vars[i] == ""){
       continue;
     }
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
       pair[1] = value;
       console.log("replaced value: " + pair[0]);
       replacedExistingVar = true;
-    } 
-    newQuery += pair[0] + "=" + pair[1]; 
+    }
+    newQuery += pair[0] + "=" + pair[1];
     if(i < vars.length-1){
       newQuery += "&";
     }
@@ -741,16 +745,16 @@ function setURLHashVariable(variable, value){
   window.location.hash = newQuery;
 }
 function getURLHashVariable(variable){
-  var query = window.location.hash.substring(1); 
-  var vars = query.split("&"); 
-  for (var i=0;i<vars.length;i++) { 
+  var query = window.location.hash.substring(1);
+  var vars = query.split("&");
+  for (var i=0;i<vars.length;i++) {
     if(vars[i] == ""){
       continue;
     }
-    var pair = vars[i].split("="); 
-    if (pair[0].toLowerCase() == variable.toLowerCase()) { 
+    var pair = vars[i].split("=");
+    if (pair[0].toLowerCase() == variable.toLowerCase()) {
       return pair[1];
-    } 
+    }
   }
   return null;
 }
@@ -829,19 +833,20 @@ $(window).ready(function() {
   //populateEditPane($("#pane_0"), "public/index.less");
   //populateEditPane($("#pane_1"), "app.js");
   //populateEditPane($("#pane_2"), "");
-  //populateEditPane($("#pane_2"), "public/index.js"); 
+  //populateEditPane($("#pane_2"), "public/index.js");
 
   populateEditPane($("#pane_0"), "");
   populateEditPane($("#pane_1"), "");
-  populateEditPane($("#pane_2"), ""); 
+  populateEditPane($("#pane_2"), "");
+/*  populateChatPane($("#pane_chat"));*/
 
-  
+
   $(".join").each(function(index, el){
     setupJoin(el);
   });
-  
+
   loadAllProjectFiles(true);
-  
+
   var lastShiftTime = 0;
   /*
   var SHIFT_SHIFT_THRESH = 300;
@@ -859,7 +864,7 @@ $(window).ready(function() {
     }
   });
   */
-  
+
   //setTimeout(function(){alert("\nWelcome to Space!\n\nSpace is a real-time, collaborative code editor created by the Chaos Collective.\n\nWhen other users are online, you'll see their cursors directly in the code. Click the button at the bottom left to open the file browser and see where users are.\n\nGo forth, explore Space, and write some code with your friends!")}, 5000);
 });
 

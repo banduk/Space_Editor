@@ -7,9 +7,7 @@
   <link href="index.css"  rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/png" href="/png/favicon.png">
 
-<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
-<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js'></script>
-<script type="text/javascript" src='./editProject.js'></script>
+
 
 </head>
 <body>
@@ -31,7 +29,8 @@
 
   <div id="fileBrowser">
     <div id='fileBrowserMenu'>
-      <div class='fileBrowserMenuItem' onclick='safelyOpenFileFromEntry(this);'>Output Log</div>
+      <!-- <div class='fileBrowserMenuItem' fname='log' onclick='safelyOpenFileFromEntry(this);'>Output Log</div> -->
+      <!-- <div class='fileBrowserMenuItem' fname='chat' onclick='safelyOpenFileFromEntry(this);'>Chat</div> -->
       <div class='fileBrowserMenuItem' onclick='createNewFile(this);'>New File...</div>
     </div>
     <div class='fileBrowserSection'>
@@ -63,7 +62,16 @@
   <!-- -->
   <div id='joinRoot' class='join joinLR'>
     <div class='joinLeft'>
-      <div id="pane_0" class='editPane'></div>
+      <!-- <div class='join joinTB'>
+        <div class='joinTop'> -->
+          <div id="pane_0" class='editPane'></div>
+      <!--   </div>
+        <div class='divTB' style='top: 100px;'></div>
+        <div class='joinBottom'>
+          <div id="pane_chat" class='chatPane'></div>
+        </div>
+        <div class='divScreen'></div>
+      </div> -->
     </div>
     <div class='divLR' style='left: 300px;'></div>
     <div class='joinRight'>
@@ -84,6 +92,10 @@
 
 </div>
 
+
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js'></script>
+<script type="text/javascript" src='./editProject.js'></script>
 <script type="text/javascript">
 
  /* var _gaq = _gaq || [];

@@ -32,7 +32,8 @@ teamID = "team";
 app  = express();
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3149);
+  app.set('port', process.env.PORT || 8080);
+  app.set('address', '0.0.0.0');
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 
@@ -78,8 +79,8 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-server = http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+server = http.createServer(app).listen(app.get('port'), app.get('address'), function(){
+  console.log("Express server listening on " + app.get('address') + ":" + app.get('port'));
 });
 var io     = require('socket.io').listen(server);
 
@@ -90,13 +91,15 @@ io.configure(function () {
 // Getting routes
 require('./routes');
 
+
+
 nowjs     = require("now");
 everyone  = nowjs.initialize(server, {socketio: {"transports": [ "htmlfile", "xhr-polling", "jsonp-polling", "flashsocket" ]}});
 
 
-
-var fg = require('./controllers/fileGroup'),
-    myFs = require('./controllers/file.js');
+var fg      = require('./controllers/fileGroup'),
+    myFs    = require('./controllers/file.js')/*,
+    chatter = require('./controllers/chat.js')*/;
 
 // ------ REALTIME NOWJS COLLABORATION ------
 //var nowcollab = require("../CHAOS/nowcollab");
@@ -123,6 +126,15 @@ nowjs.on('connect', function () {
   // -----
   this.user.grouplist   = []; // file groups starts out empty.
   fg.addUserToFileGroup(this.user, ""); // the blank file group is the the team group.
+
+var output = "this.now = [\n";
+var object = this.now;
+for (property in object) {
+  output += '  ' + property + ': ' + object[property]+';\n';
+}
+output+="]"
+console.log(output);
+
   this.now.c_confirmProject(this.user.teamID);
 });
 
@@ -149,6 +161,17 @@ everyone.now.s_sendCursorUpdate = function(fname, range, changedByUser){
   var userObj = this.user;
   var filegroup = nowjs.getGroup(userObj.teamID+"/"+fname);
 
+  var _usersIngroup = "";
+  var users = filegroup.users;
+  for (userInUsers in users) {
+    _usersIngroup += '        [ ' + userInUsers+ ': ' + users[userInUsers].user.about.name +' ]\n';
+  }
+
+  console.log("SENDING CURSOR!!!!!\n"+
+              "    usr  : " + this.user.about.name + "\n" +
+              "    group: {\n" + _usersIngroup + "    }\n" +
+              " cielntId: "+this.user.clientId + "  now.name:" + this.now.name + "  changedByUser: " + changedByUser);
+
   filegroup.now.c_updateCollabCursor(this.user.clientId, this.now.name, range, changedByUser);
 };
 everyone.now.s_sendDiffPatchesToCollaborators = function(fname, patches, crc32){
@@ -157,15 +180,68 @@ everyone.now.s_sendDiffPatchesToCollaborators = function(fname, patches, crc32){
   var filegroup = nowjs.getGroup(userObj.teamID+"/"+fname);
   filegroup.now.c_updateWithDiffPatches(this.user.clientId, patches, crc32);
 };
-// NOW: Remote file tools.
-everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
 
-console.log("OPENING FILE!!!");
+
+// NOW: Remote file tools.
+
+//Get the contents of a File
+/*everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
   var callerID = this.user.clientId;
   var userObj = this.user;
 
+  // Adds user to the list of editors of this file
+  fg.addUserToFileGroup(userObj, fname);
 
+  // If the server file is most recent fetch it
+  if(myFs.localFileIsMostRecent[userObj.teamID+"/"+fname] === true || myFs.localFileIsMostRecent[userObj.teamID+"/"+fname] === undefined){
+    //console.log("FILE FETCH: " + userObj.teamID + " >> " + fname + ", by user: " + (userObj.about.name || callerID));
+    myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+    //this.now.c_addFileToChat(fname);
+  }else{
+    //console.log("FILE FETCH (passed to user): " + userObj.teamID + " >> " + fname + ", by user: " + callerID);
 
+    // Get the group of users that is editting this file
+    var filegroup = nowjs.getGroup(userObj.teamID+"/"+fname);
+    // For each user that is editing
+    var users = filegroup.getUsers(function (users) {
+      var foundUser = false;
+
+      // Try to find the user that requested the file
+      for (var i = 0; i < users.length; i++){
+
+        // If found
+        if(users[i] != callerID){
+          // this looks like a valid user to get the file from. :)
+          console.log("Trying to get file from: " + users[i]);
+
+          // for the found user
+          nowjs.getClient(users[i], function(){
+            // If the clientId is undefined just fetch the server file
+            if(this.now === undefined){
+              console.log("Undefined clientId for requestFullFileFromUserID (using local) >> " + users[i]);
+              myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+            }else{
+              // let the user with his file, it will be saved later
+              this.now.c_userRequestedFullFile(fname, callerID, fileRequesterCallback);
+              //this.now.c_addFileToChat(fname);
+            }
+          });
+          foundUser = true;
+          break;
+        }
+      }
+
+      // If did not found a user to get the file from, just fetch the server file
+      if(!foundUser){
+        console.log("Flagged as changed, but no user with file: "+userObj.teamID+" >> "+fname+" >> FETCHING last saved.");
+        myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+      }
+    });
+  }
+};*/
+everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
+  var callerID = this.user.clientId;
+  var userObj = this.user;
   fg.addUserToFileGroup(userObj, fname);
   //removeUserFromAllFileGroupsAndAddToThis(origUser, fname);
   if(myFs.localFileIsMostRecent[userObj.teamID+"/"+fname] === true || myFs.localFileIsMostRecent[userObj.teamID+"/"+fname] === undefined){
@@ -222,6 +298,15 @@ everyone.now.s_requestFullFileFromUserID = function(fname, id, fileRequesterCall
   });
 };
 //-------
+
+
+/*everyone.now.s_sendFileChat = function(fname, message){
+  var filegroup    = nowjs.getGroup(this.user.teamID+"/"+fname);
+  var fromUserId   = this.user.clientId;
+  var fromUserName = this.now.name;
+  filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName);
+};*/
+
 everyone.now.s_teamMessageBroadcast      = function(type, message){
   var teamgroup  = nowjs.getGroup(this.user.teamID);
   var scope      = "team";
@@ -349,12 +434,6 @@ everyone.now.s_deployProject = function(txt, deployerCallback){
   console.log("DEPLOYING Project >> " + team);
   localProjectDeploy(this.user, deployerCallback);
 };
-
-
-
-
-
-
 
 console.log(".----------------------------------.");
 console.log("| *. Space running on port "+ app.get('port') +" .* |");

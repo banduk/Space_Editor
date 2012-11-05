@@ -12,8 +12,16 @@ app.get("/allProjectFiles", restrict, function(req, res){
   if(req.query.project && req.query.project.length > 2){
     var project = req.query.project.replace(/\.\./g, "");
     var projectRoot = EDITABLE_APPS_DIR+project;
+
+/*var output = '';
+var object = req.cookies.user;
+for (property in object) {
+  output += property + ': ' + object[property]+'; ';
+}
+console.log(output);
+*/
     console.log("Listing all project files [" + projectRoot + "] for user: " +
-      req.cookies.user.name + " --> (~"+fileGroup.usersInGroup[project]+" sockets)");
+      req.cookies._username + " --> (~"+fileGroup.usersInGroup[project]+" sockets)");
     try{
 
       var walker = walk.walk(projectRoot, {followLinks: false});

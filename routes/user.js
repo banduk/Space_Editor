@@ -29,9 +29,6 @@ app.get('/', restrict, function(req,res,next){
   staticProvider(req, res, next);
 });
 
-/*List users*/
-app.get('/users', users.list);
-
 /*SIGNUP*/
 app.get('/signup', unrestrict, function(req, res){
   res.render('signup');

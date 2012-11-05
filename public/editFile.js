@@ -2,7 +2,7 @@
 // Right-click context menu plugin for jQuery...
 // -----------------------------------------
 (function ($) {
-/**
+  /**
    * @author corey aufang (with many modifications by seewhatsticks dev team)
    * @version 1.0.1
    */
@@ -108,6 +108,26 @@
   });
 };
 })(jQuery);
+
+
+
+
+
+now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
+  console.log("msg from "+fromUserId+": " + message);
+  var userColor = userColorMap[fromUserId%userColorMap.length];
+  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  notifyAndAddMessageToLog(userColor, fromUserName, msg);
+}
+
+now.c_confirmProject   = function(teamID){
+  now.teamID = teamID;
+  console.log("PROJECT: " + now.teamID);
+  // <a href='http://"+teamID+".chaoscollective.org/'
+  $("#topProjName").html(teamID+" &raquo;");
+}
+
+
 
 // -----------------------------------------
 // Editor
@@ -356,8 +376,10 @@ var userColorMap = ["#9DDC23", "#00FFFF", "#FF308F", "#FFD400", "#FF0038", "#7C2
 
 now.c_updateCollabCursor    = function(id, name, range, changedByUser){
   if(id == now.core.clientId){
+    //console.log("myUpdate");
     return;
   }
+  //console.log("othersUpdate");
   var cInfo = allCollabInfo[id];
   if(cInfo == undefined){
     // first time seeing this user!
@@ -395,6 +417,7 @@ now.c_updateWithDiffPatches = function(id, patches, md5){
   updateWithDiffPatchesLocal(id, patches, md5);
 }
 
+
 now.c_userRequestedFullFile = function(fname, collabID, fileRequesterCallback){
   //if(!initialStateIsWelcome){
     console.log("user requesting full file: " + fname + " >> " + collabID);
@@ -415,12 +438,10 @@ now.c_fileStatusChanged     = function(fname, status){
   }
 }
 now.c_processUserFileEvent  = function(fname, event, fromUserId, usersInFile, secondaryFilename, msg){
-  /*
   if(fromUserId == now.core.clientId){
     return;
   }
-  */
-  /*
+
   var uInfo = allCollabInfo[fromUserId];
   var uName = "???";
   if(uInfo != undefined){
@@ -476,8 +497,8 @@ now.c_processUserFileEvent  = function(fname, event, fromUserId, usersInFile, se
     var userColor = userColorMap[fromUserId%userColorMap.length];
     notifyAndAddMessageToLog(userColor, uName, "<div class='itemType_projectAction'>Launched the project!</div>");
   }
-  */
 }
+
 now.c_processUserEvent      = function(event, fromUserId, fromUserName){
   if(fromUserId == now.core.clientId){
     return;
@@ -498,19 +519,7 @@ now.c_processUserEvent      = function(event, fromUserId, fromUserName){
     mostRecentTotalUserCount--;
     notifyAndAddMessageToLog(userColor, fromUserName, "has left.");
   }
-}
-now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
-  console.log("msg from "+fromUserId+": " + message);
-  var userColor = userColorMap[fromUserId%userColorMap.length];
-  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  notifyAndAddMessageToLog(userColor, fromUserName, msg);
-}
-
-now.c_confirmProject        = function(teamID){
-  now.teamID = teamID;
-  console.log("PROJECT: " + now.teamID);
-  // <a href='http://"+teamID+".chaoscollective.org/'
-  $("#topProjName").html(teamID+"");
+  /*updateHUD();*/
 }
 // ---------------------------------------------------------
 // Main functions...
