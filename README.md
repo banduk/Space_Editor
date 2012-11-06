@@ -47,13 +47,3 @@ http://chaoscollective.org/projects/builtinspace.html
  - ACE
  - diff-match-patch
 
-## What's Next?
-
-We took a vote, and the results are in. The community wants Space to be open source, so now it is!
-
-But making Space open source is only half the battle, now we need to take it to a more robust and scalable level. Feel free to fork Space, make suggestion, and spread the word. :)
-
-Happy coding!
-
-xoxo,
-the Chaos Collective
