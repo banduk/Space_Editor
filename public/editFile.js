@@ -120,11 +120,11 @@ now.c_processMessage        = function(scope, type, message, fromUserId, fromUse
   notifyAndAddMessageToLog(userColor, fromUserName, msg);
 }
 
-now.c_confirmProject   = function(teamID){
-  now.teamID = teamID;
-  console.log("PROJECT: " + now.teamID);
-  // <a href='http://"+teamID+".chaoscollective.org/'
-  $("#topProjName").html(teamID+" &raquo;");
+now.c_confirmProject   = function(TEAM_ID){
+  now.TEAM_ID = TEAM_ID;
+  console.log("PROJECT: " + now.TEAM_ID);
+  // <a href='http://"+TEAM_ID+".chaoscollective.org/'
+  $("#topProjName").html(TEAM_ID+" &raquo;");
 }
 
 
@@ -1300,9 +1300,9 @@ now.ready(function(){
 $(document).ready(function() {
   var getProject = getURLGetVariable("project");
   if(getProject){
-    now.teamID = getProject;
+    now.TEAM_ID = getProject;
   }else{
-    now.teamID = '';
+    now.TEAM_ID = '';
   }
 
   //console.log("starting editor...");

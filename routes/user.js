@@ -26,7 +26,7 @@ function authenticate(name, pass, fn) {
 
 app.get('/', restrict, function(req,res,next){
   req.url = "index.html";
-  staticProvider(req, res, next);
+  STATIC_PROVIDER(req, res, next);
 });
 
 /*SIGNUP*/
