@@ -25,8 +25,9 @@ exports.route = function(){
 
 
   app.get('/', restrict, function(req,res,next){
-    req.url = "index.html";
-    STATIC_PROVIDER(req, res, next);
+
+    //STATIC_PROVIDER(req, res, next);
+    res.render('index');
   });
 
   /*SIGNUP*/

@@ -5,7 +5,7 @@
 
 @font-face {
   font-family: "Inconsolata";
-  src: url("./fonts/Inconsolata.otf");
+  src: url("./../font/Inconsolata.otf");
 }
 body {
   overflow: hidden;
@@ -293,7 +293,7 @@ background-color: transparent;
   font-size: 11px;
   padding-top: 11px;
   cursor: pointer;
-  /*background: url("./png/preflight.png") center right no-repeat;*/
+  /*background: url("./../img/preflight.png") center right no-repeat;*/
   opacity: 0.5;
 }
 #preflightButton:hover {
@@ -311,7 +311,7 @@ background-color: transparent;
   font-size: 11px;
   padding-top: 11px;
   cursor: pointer;
-  /*background: url("./png/launch.png") center right no-repeat;*/
+  /*background: url("./../img/launch.png") center right no-repeat;*/
   opacity: 0.5;
 }
 #launchButton:hover {
@@ -323,7 +323,7 @@ background-color: transparent;
   left: 10px;
   width: 34px;
   height: 34px;
-  background: url("./png/filebrowse_open.png") center center no-repeat;
+  background: url("./../img/filebrowse_open.png") center center no-repeat;
   cursor: pointer;
   z-index: 2;
 }
@@ -718,7 +718,7 @@ background-color: transparent;
 }
 #shiftshiftBtn_Delete:hover {
   border-color: #ff3600;
-  background-image: url("./png/delete_ptrn.png");
+  background-image: url("./../img/delete_ptrn.png");
   background-position: 2000px 0px;
   background-repeat: repeat;
   -webkit-transition: background-position 100s linear;

@@ -50,8 +50,7 @@ app.configure(function(){
       maxAge   : 1000*60*60*24*30*2    //60 days
     }
   }));
-  app.use(app.router);
-  app.use(STATIC_PROVIDER);
+
   app.use(function(req, res, next){
     var err = req.session.error
       , msg = req.session.success;
@@ -67,6 +66,9 @@ app.configure(function(){
     if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
     next();
   });
+
+  app.use(app.router);
+  app.use(STATIC_PROVIDER);
 });
 
 // Configuring express to show better error messages
