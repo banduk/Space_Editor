@@ -3,9 +3,15 @@ console.log("| * Starting Node service * |");
 console.log("'---------------------------'");
 
 //colors for console logging
+/*FGRED=`echo "\033[31m"`
+FGCYAN=`echo "\033[36m"`
+BGRED=`echo "\033[41m"`
+FGBLUE=`echo "\033[35m"`
+BGGREEN="\033[42m"*/
 blue  = '\033[36m';
 reset = '\033[0m';
 
+logBlue = function(str){console.log(blue + str + reset)};
 
 /**
  * Module dependencies.

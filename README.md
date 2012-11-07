@@ -13,10 +13,11 @@ You must have [Node](http://nodejs.org/) installed.
 
 Just enter in the project folder and run:
 
-    npm update
     npm install
 
 ## Running
+
+For now the team name is fixed, so you have to have the `./workspace/team` folder in your project
 
 Just enter in the project folder and run:
 
