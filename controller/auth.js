@@ -58,8 +58,8 @@ module.exports = function() {
    * Hashes a password with optional `salt`, otherwise
    * generate a salt for `pass` and invoke `fn(err, salt, hash)`.
    *
-   * @param {String} password to hash
-   * @param {String} optional salt
+   * @param {string} password to hash
+   * @param {string} optional salt
    * @param {Function} callback
    * @api public
    */

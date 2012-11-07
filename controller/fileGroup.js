@@ -9,7 +9,7 @@ module.exports = function(){
   /**
    * Add a given user to a given the filegroup
    * @param {Javascript Object} userObj A object representing the user
-   * @param {String} fname              The filename
+   * @param {string} fname              The filename
    * @return {}
    */
   this.addUserToFileGroup = function(userObj, fname){
@@ -45,7 +45,7 @@ module.exports = function(){
   /**
    * Remove a given user from a given filegroup
    * @param {Javascript Object} userObj A object representing the user
-   * @param {String} fname              The filename
+   * @param {string} fname              The filename
    * @return {}
    */
   this.removeUserFromFileGroup = function(userObj, fname){
@@ -85,7 +85,7 @@ module.exports = function(){
 
   /**
    * Increment the number of users in the given group
-   * @param  {String} group The name of the group
+   * @param  {string} group The name of the group
    * @return {}
    */
   this.usersInGroupPlusPlus = function(group){
@@ -99,7 +99,7 @@ module.exports = function(){
 
   /**
    * Decrement the number of users in the given group
-   * @param  {String} group The name of the group
+   * @param  {string} group The name of the group
    * @return {}
    */
   this.usersInGroupMinusMinus = function(group){

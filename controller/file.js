@@ -290,8 +290,8 @@ module.exports = function(){
 
   /**
    * Fetches the local file to send to the user
-   * @param  {Javascript Object} userObj  The object representing the user
-   * @param  {String} fname               Name of the file to fetch
+   * @param  {object} userObj  The object representing the user
+   * @param  {string} fname               Name of the file to fetch
    * @param  {Function} fileRequester     Callback Callback functions
    * @return {}
    */
@@ -312,9 +312,9 @@ module.exports = function(){
 
   /**
    * Save a file sent by a user
-   * @param  {Javascript Object} userObj      The object representing the user
-   * @param  {String} fname                   Name of the file to write into
-   * @param  {String} fcontents               The data to write
+   * @param  {object} userObj      The object representing the user
+   * @param  {string} fname                   Name of the file to write into
+   * @param  {string} fcontents               The data to write
    * @param  {Function} fileRequesterCallback Callback functions
    * @return {}
    */
@@ -354,8 +354,8 @@ module.exports = function(){
 
   /**
    * Creates a local file
-   * @param  {Javascript Object} userObj    The object representing the user
-   * @param  {String} fname                 Name of the file to fetch
+   * @param  {object} userObj    The object representing the user
+   * @param  {string} fname                 Name of the file to fetch
    * @param  {Function} fileCreatorCallback Callback Callback functions
    * @return {}
    */
@@ -411,8 +411,8 @@ module.exports = function(){
 
   /**
    * Deletes a locel file
-   * @param  {Javascript Object} userObj    The object representing the user
-   * @param  {String} fname                 Name of the file to fetch
+   * @param  {object} userObj    The object representing the user
+   * @param  {string} fname                 Name of the file to fetch
    * @param  {Function} fileDeleterCallback Callback Callback functions
    * @return {}
    */
@@ -461,9 +461,9 @@ module.exports = function(){
 
   /**
    * Renames a local file
-   * @param  {Javascript Object} userObj    The object representing the user
-   * @param  {String} fname                 Name of the file to fetch
-   * @param  {String} newFName              The name of the new file
+   * @param  {object} userObj    The object representing the user
+   * @param  {string} fname                 Name of the file to fetch
+   * @param  {string} newFName              The name of the new file
    * @param  {Function} fileRenamerCallback Callback Callback functions
    * @return {}
    */
@@ -528,9 +528,9 @@ module.exports = function(){
 
   /**
    * Duplicates a local file
-   * @param  {Javascript Object} userObj    The object representing the user
-   * @param  {String} fname                 Name of the file to fetch
-   * @param  {String} newFName              The name of the new file
+   * @param  {object} userObj    The object representing the user
+   * @param  {string} fname                 Name of the file to fetch
+   * @param  {string} newFName              The name of the new file
    * @param  {Function} fileDuplicatorCallback Callback Callback functions
    * @return {}
    */

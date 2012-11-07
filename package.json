@@ -9,7 +9,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "doc"  : "dox-foundation --source . --target docs --ignore public,view,node_modules,workspace/team"
   },
   "dependencies": {
     "express" : "3.x",

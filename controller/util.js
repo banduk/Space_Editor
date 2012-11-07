@@ -6,8 +6,8 @@ module.exports = function(){
 
   /**
    * Occurrences of a substring in another string
-   * @param  {String} string    The 'bigger' string
-   * @param  {String} substring The string to be searched
+   * @param  {string} string    The 'bigger' string
+   * @param  {string} substring The string to be searched
    * @return {The number off occurrences}
    */
   this.occurrences = function(string, substring){
