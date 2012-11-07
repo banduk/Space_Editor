@@ -1,6 +1,16 @@
-
+/**
+ * General utils
+ * @return {}
+ */
 module.exports = function(){
-    this.occurrences = function(string, substring){
+
+  /**
+   * Occurrences of a substring in another string
+   * @param  {String} string    The 'bigger' string
+   * @param  {String} substring The string to be searched
+   * @return {The number off occurrences}
+   */
+  this.occurrences = function(string, substring){
     var n=0;
     var pos=0;
     while(true){

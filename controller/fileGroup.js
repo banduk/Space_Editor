@@ -1,16 +1,30 @@
+/**
+ * Filegroup functions
+ * @return {}
+ */
 module.exports = function(){
+  // List of the users for each file
   var usersInGroup = this.usersInGroup = {};
 
+  /**
+   * Add a given user to a given the filegroup
+   * @param {Javascript Object} userObj A object representing the user
+   * @param {String} fname              The filename
+   * @return {}
+   */
   this.addUserToFileGroup = function(userObj, fname){
+    // Get the group of the user
     var groupname = userObj.TEAM_ID;
 
+    // Get the path of the file the user is editting (if theres no path, the user wants the log)
     if(fname  && fname !== "")
       groupname += "/" + fname;
 
+    // Get the group of users that are in the group of this file
     var g = nowjs.getGroup(groupname);
 
+    // If the user is not in this group yet (does not have this file opened)
     if(!g.users[userObj.clientId]){
-      // user not in group yet.
       // add to NOW group.
       g.addUser(userObj.clientId);
 
@@ -23,19 +37,30 @@ module.exports = function(){
         var teamgroup = nowjs.getGroup(userObj.TEAM_ID);
         teamgroup.now.c_processUserFileEvent(fname, "joinFile", userObj.clientId, usersInGroup[groupname]);
       }
-      //console.log("Added user " + user + " to group: " + group);
     }else{
       console.log("no need to add user " + userObj.clientId + " to group: " + groupname + " ???");
-      //console.log(g.users[userObj.clientId]);
     }
   }
 
+  /**
+   * Remove a given user from a given filegroup
+   * @param {Javascript Object} userObj A object representing the user
+   * @param {String} fname              The filename
+   * @return {}
+   */
   this.removeUserFromFileGroup = function(userObj, fname){
+    // Get the group of the user
     var groupname = userObj.TEAM_ID;
-    if(fname  && fname !== ""){
+
+    // Get the path of the file the user is editting (if theres no path, the user wants the log)
+    if(fname  && fname !== "")
       groupname += "/" + fname;
-    }
+
+    // Get the group of users that are in the group of this file
     var g = nowjs.getGroup(groupname);
+
+    // TODO: And if the user has the file oppened more then once
+    // If the user is in this group (has this file opened)
     if(g.users[userObj.clientId]){
       // user was in group.
       // remove user from NOW group.
@@ -54,10 +79,15 @@ module.exports = function(){
       }
       //console.log("Removed user " + userObj.clientId + " from: " + groupname);
     }else{
-      //console.log(g);
-      //console.log("no need to remove user " + userObj.clientId + " from group: " + groupname + " ???");
+      console.log("no need to remove user " + userObj.clientId + " from group: " + groupname + " ???");
     }
   }
+
+  /**
+   * Increment the number of users in the given group
+   * @param  {String} group The name of the group
+   * @return {}
+   */
   this.usersInGroupPlusPlus = function(group){
     if(usersInGroup[group]){
       usersInGroup[group]++;
@@ -66,6 +96,12 @@ module.exports = function(){
     }
     //console.log("UsersInGroup(+): " + group + " >> " + usersInGroup[group]);
   }
+
+  /**
+   * Decrement the number of users in the given group
+   * @param  {String} group The name of the group
+   * @return {}
+   */
   this.usersInGroupMinusMinus = function(group){
     if(usersInGroup[group]){
       usersInGroup[group]--;
