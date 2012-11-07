@@ -20,27 +20,29 @@ this.config = function() {
     else
       this.user.TEAM_ID   = TEAM_ID;
 
-    // hack to get out best guess at the user (since now.js doesn't give us the request object or session!);
-    var u = {}; //(Auth || {}).getUserFromCache(decodeURIComponent(this.user.cookie['_chaos.auth'])) || {};
+    var u = user.getByUsername(this.user.cookie['_username']);
 
-    // now populate it..
-    this.user.about       = {};
-    this.user.about._id   = u._id || 0;
-    this.user.about.name  = u.nameGiven || u.name  || this.user.cookie["_username"] || "???";
-    this.user.about.email = u.emailPrimary || "anon@user.org";
+    console.log("AE:  " + u);
 
-    // -----
-    this.now.name = this.user.about.name;
-    // -----
+    if(u){
+      // now populate it..
+      this.user.about       = {};
+      this.user.about._id   = u.username;
+      this.user.about.name  = u.username;
 
-    // file groups starts out empty.
-    this.user.grouplist   = [];
+      // -----
+      this.now.username = this.user.about.name;
+      // -----
 
-    // the blank file group is the the team group.
-    fg.addUserToFileGroup(this.user, "");
+      // file groups starts out empty.
+      this.user.grouplist = [];
 
-    // Confirm the project to the user
-    this.now.c_confirmProject(this.user.TEAM_ID);
+      // the blank file group is the the team group.
+      fg.addUserToFileGroup(this.user, "");
+
+      // Confirm the project to the user
+      this.now.c_confirmProject(this.user.TEAM_ID);
+    }
   });
 
   nowjs.on('disconnect', function () {
@@ -69,7 +71,7 @@ this.route = function() {
       _usersIngroup += '        [ ' + userInUsers+ ': ' + users[userInUsers].user.about.name +' ]\n';
     }
 
-    filegroup.now.c_updateCollabCursor(this.user.clientId, this.now.name, range, changedByUser);
+    filegroup.now.c_updateCollabCursor(this.user.clientId, this.now.username, range, changedByUser);
   };
   everyone.now.s_sendDiffPatchesToCollaborators = function(fname, patches, crc32){
     var userObj = this.user;
@@ -85,7 +87,10 @@ this.route = function() {
   everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
     var callerID = this.user.clientId;
     var userObj = this.user;
+
     fg.addUserToFileGroup(userObj, fname);
+
+
     //removeUserFromAllFileGroupsAndAddToThis(origUser, fname);
     if(myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === true || myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === undefined){
       myFs.localFileFetch(userObj, fname, fileRequesterCallback);
@@ -146,7 +151,7 @@ this.route = function() {
   /*everyone.now.s_sendFileChat = function(fname, message){
     var filegroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname);
     var fromUserId   = this.user.clientId;
-    var fromUserName = this.now.name;
+    var fromUserName = this.now.username;
     filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName);
   };*/
 
@@ -154,7 +159,7 @@ this.route = function() {
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
     var scope      = "team";
     var fromUserId = this.user.clientId;
-    var fromUserName = this.now.name;
+    var fromUserName = this.now.username;
     teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
   };
   everyone.now.s_leaveFile                 = function(fname){
@@ -165,7 +170,7 @@ this.route = function() {
   everyone.now.s_sendUserEvent             = function(event){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
     var fromUserId = this.user.clientId;
-    var fromUserName = this.now.name;
+    var fromUserName = this.now.username;
     teamgroup.now.c_processUserEvent(event, fromUserId, fromUserName);
   };
   //-------

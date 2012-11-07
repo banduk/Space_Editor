@@ -448,7 +448,7 @@ now.c_processUserFileEvent  = function(fname, event, fromUserId, usersInFile, se
     uName = uInfo.name;
   }
   if(fromUserId == now.core.clientId){
-    uName = now.name;
+    uName = now.username;
   }
   console.log("UserFileEvent: " + event + " >> " + fname + " >> " + uName + ", usersInFile: " + usersInFile);
   if(event == "joinFile"){

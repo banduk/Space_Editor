@@ -6,9 +6,9 @@ exports.route = function(){
     ;
 
   // Authenticate using our plain-object database of doom!
-  function authenticate(name, pass, fn) {
-    if (!module.parent) console.log('authenticating %s:%s', name, pass);
-    var usr = users.users[name];
+  function authenticate(username, pass, fn) {
+    if (!module.parent) console.log('authenticating %s:%s', username, pass);
+    var usr = users.users[username];
     // query the db for the given username
     if (!usr) return fn(new Error('cannot find user'));
     // apply the same algorithm to the POSTed password, applying
@@ -35,7 +35,7 @@ exports.route = function(){
     res.render('signup');
   });
   app.post('/signup', function(req, res){
-    usr = users.create(req.body.name, req.body.username, req.body.password);
+    usr = users.create(req.body.username, req.body.password);
     doAuthenticate(req, res, usr);
   });
 
@@ -51,8 +51,7 @@ exports.route = function(){
         req.session.regenerate(function(){doAuthenticate(req, res, user)});
       } else {
         req.session.error = 'Authentication failed, please check your '
-          + ' username and password.'
-          + ' (use "tj" and "foobar")';
+          + ' username and password.';
         res.redirect('login');
       }
     });
@@ -73,13 +72,11 @@ exports.route = function(){
     // in the session store to be retrieved,
     // or in this case the entire user object
     req.session.user = user;
-    req.session.success = 'Authenticated as ' + user.name
-      + ' click to <a href="/logout">logout</a>. '
-      + ' You may now access <a href="/restricted">/restricted</a>.';
+    req.session.success = 'Authenticated as ' + user.username
+      + ' click to <a href="/logout">logout</a>.';
 
-      console.log("Authenticated: " + user.name);
+      console.log("Authenticated: " + user.username);
       // TODO: remove password =D
-      res.cookie("_username", user.name);
-      res.redirect("/?project=project1");
+      res.redirect("/?project=" + TEAM_ID);
   }
 }

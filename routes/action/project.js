@@ -10,7 +10,7 @@ exports.route = function() {
       var projectRoot = EDITABLE_APPS_DIR+project;
 
       console.log("Listing all project files [" + projectRoot + "] for user: " +
-        req.cookies._username + " --> (~"+fg.usersInGroup[project]+" sockets)");
+        req.session.user.username + " --> (~"+fg.usersInGroup[project]+" sockets)");
       try{
 
         var walker = walk.walk(projectRoot, {followLinks: false});
@@ -86,7 +86,7 @@ exports.route = function() {
     }
     if(req.query.project && req.query.project.length > 2){
       var projectName = req.query.project.replace(/\.\./g, "");
-      console.log("LAUNCHING Project [" + req.user.name + "] >> " + projectName);
+      console.log("LAUNCHING Project [" + req.session.user.username + "] >> " + projectName);
       var projPath = EDITABLE_APPS_DIR+projectName;
       exec('stop node_'+projectName, {
           encoding: 'utf8',

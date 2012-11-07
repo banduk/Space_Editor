@@ -13,8 +13,12 @@ module.exports = function(){
       // user not in group yet.
       // add to NOW group.
       g.addUser(userObj.clientId);
+
+      console.log('adding user to filegroup: ' + userObj);
+
       // add to local group.
       userObj.grouplist.push(groupname);
+
       // keep track locally of users in group.
       this.usersInGroupPlusPlus(groupname);
       if(fname.length > 0){

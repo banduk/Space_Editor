@@ -1,6 +1,6 @@
 exports.route = function() {
   app.post("/createFile", function(req, res){
-    console.log("CREATE FILE ["+req.cookies.user.name+"]");
+    console.log("CREATE FILE ["+req.session.user.username+"]");
     if(req.query.project && req.query.project.length > 2 && req.body.fname){
       var projectName = req.query.project.replace(/\.\./g, "");
       var fname = req.body.fname;
@@ -33,7 +33,7 @@ exports.route = function() {
     }
   });
   app.post("/deleteFile", function(req, res){
-    console.log("DELETE FILE ["+req.cookies.user.name+"]");
+    console.log("DELETE FILE ["+req.session.user.username+"]");
     if(req.query.project && req.query.project.length > 2 && req.body.fname){
       var projectName = req.query.project.replace(/\.\./g, "");
       var fname = req.body.fname;
@@ -65,7 +65,7 @@ exports.route = function() {
     }
   });
   app.post("/renameFile", function(req, res){
-    console.log("RENAME FILE ["+req.cookies.user.name+"]");
+    console.log("RENAME FILE ["+req.session.user.username+"]");
     if(req.query.project && req.query.project.length > 2 && req.body.fname && req.body.newfname){
       var projectName = req.query.project.replace(/\.\./g, "");
       var fname = req.body.fname;
@@ -95,7 +95,7 @@ exports.route = function() {
               console.log(err);
               return res.send("FAIL: Error renaming file.");
             }
-            console.log("successfully renamed file ["+req.cookies.user.name+"]: " + pathA + " >> " + pathB);
+            console.log("successfully renamed file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
             return res.send(safeNewFName);
           });
         }
@@ -108,7 +108,7 @@ exports.route = function() {
     }
   });
   app.post("/duplicateFile", function(req, res){
-    console.log("DUPLICATE FILE ["+req.cookies.user.name+"]");
+    console.log("DUPLICATE FILE ["+req.session.user.username+"]");
     if(req.query.project && req.query.project.length > 2 && req.body.fname && req.body.newfname){
       var projectName = req.query.project.replace(/\.\./g, "");
       var fname = req.body.fname;
@@ -139,7 +139,7 @@ exports.route = function() {
               console.log(err);
               return res.send("FAIL: Error duplicating file.");
             }
-            console.log("successfully duplicated file ["+req.cookies.user.name+"]: " + pathA + " >> " + pathB);
+            console.log("successfully duplicated file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
             return res.send(safeNewFName);
           });
         }

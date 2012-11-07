@@ -55,8 +55,9 @@ app.configure(function(){
     var err = req.session.error
       , msg = req.session.success;
 
+
     if(req.session && req.session.user){
-      res.cookie('_username', req.session.user.name);
+      res.cookie('_username', req.session.user.username);
     }
 
     delete req.session.error;
@@ -95,6 +96,7 @@ fs      = require('fs');
 var Util       = require('./controller/util')
   , FileGroup  = require('./controller/fileGroup')
   , FileSystem = require('./controller/file')
+  , User       = require('./controller/user')
   , Auth       = require('./controller/auth')
   ;
 
@@ -104,6 +106,7 @@ var Util       = require('./controller/util')
   utl    = new Util()
 , fg     = new FileGroup()
 , myFs   = new FileSystem()
+, user   = new User()
 , auth   = new Auth()
 ;
 
