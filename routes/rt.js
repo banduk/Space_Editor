@@ -21,9 +21,6 @@ this.config = function() {
       this.user.TEAM_ID   = TEAM_ID;
 
     var u = user.getByUsername(this.user.cookie['_username']);
-
-    console.log("AE:  " + u);
-
     if(u){
       // now populate it..
       this.user.about       = {};

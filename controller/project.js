@@ -1,10 +1,8 @@
-exports.route = function() {
-  var restrict    = auth.restrict
-    , occurrences = utl.occurrences
+module.exports = function(){
+  var occurrences = utl.occurrences
     ;
 
-  // TODO: check credentials before doing any of these GET/POST...
-  app.get("/allProjectFiles", restrict, function(req, res){
+  this.allProjectFiles = function(req, res){
     if(req.query.project && req.query.project.length > 2){
       var project = req.query.project.replace(/\.\./g, "");
       var projectRoot = EDITABLE_APPS_DIR+project;
@@ -78,8 +76,10 @@ exports.route = function() {
     }else{
       res.send("FAIL: no project name.");
     }
-  });
-  app.post("/launchProject", restrict, function(req, res){
+  }
+
+
+  this.launchProject = function(req, res){
     if(!ENABLE_LAUNCH){
       res.send("FAIL: Sorry, but launching projects is not currently enabled.");
       return;
@@ -124,19 +124,19 @@ exports.route = function() {
     }else{
       res.send("FAIL: no project name.");
     }
-  });
+  }
 
 
-
-  app.get("/allUsersEditingProjectsIFrame", function(req, res){
+  this.allUsersEditingProjectsIFrame = function(req, res){
     var html = "<html></head><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js'></script><head><body><script>";
     //html += "var u = "+JSON.stringify(nowUsersList)+";";
     html += "function receiveMessage(event){var o = event.origin; var p = parent; $.get('/allUsersEditingProjects', function(data){p.postMessage(JSON.parse(data), o);});};";
     html += "window.addEventListener('message', receiveMessage, false);";
     html += "</script></body></html>";
     res.send(html);
-  });
-  app.get("/allUsersEditingProjects", function(req, res){
+  }
+
+  this.allUsersEditingProjects = function(req, res){
     var nowUsers = everyone.users || {}; //nowjs.server.connected || {};
     var nowUsersList = [];
     _.each(nowUsers, function(val, name){
@@ -154,5 +154,6 @@ exports.route = function() {
     res.send(html);
 
     res.send(JSON.stringify(nowUsersList));
-  });
+  }
+
 }

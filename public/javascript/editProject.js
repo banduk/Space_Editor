@@ -203,6 +203,25 @@ function getProjectFileInfo(fname){
   }
   return null;
 }
+
+
+now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
+  console.log("msg from "+fromUserId+": " + message);
+  var userColor = userColorMap[fromUserId%userColorMap.length];
+  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  notifyAndAddMessageToLog(userColor, fromUserName, msg);
+}
+
+now.c_confirmProject   = function(TEAM_ID){
+  now.TEAM_ID = TEAM_ID;
+  console.log("PROJECT: " + now.TEAM_ID);
+  // <a href='http://"+TEAM_ID+".chaoscollective.org/'
+  $("#topProjName").html(TEAM_ID+" &raquo;");
+}
+
+
+
+
 // ---------------------------------------------------------
 // File browser
 // ---------------------------------------------------------
@@ -848,7 +867,7 @@ $(window).ready(function() {
   loadAllProjectFiles(true);
 
   var lastShiftTime = 0;
-  /*
+
   var SHIFT_SHIFT_THRESH = 300;
   $(document).keydown(function(event){
     if(event.shiftKey && event.keyCode == 16){
@@ -863,7 +882,7 @@ $(window).ready(function() {
       lastShiftTime = 0;
     }
   });
-  */
+
 
   //setTimeout(function(){alert("\nWelcome to Space!\n\nSpace is a real-time, collaborative code editor created by the Chaos Collective.\n\nWhen other users are online, you'll see their cursors directly in the code. Click the button at the bottom left to open the file browser and see where users are.\n\nGo forth, explore Space, and write some code with your friends!")}, 5000);
 });

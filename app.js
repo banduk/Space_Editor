@@ -12,7 +12,6 @@ reset = '\033[0m';
  */
 var express = require("express")
   , util    = require("util")
-  , crypto  = require('crypto')
   , spawn   = require('child_process').spawn
   , exec    = require('child_process').exec
   , _       = require('underscore')
@@ -88,7 +87,10 @@ io.configure(function () {
     io.set("transports", [ "htmlfile", "xhr-polling", "jsonp-polling", "flashsocket" ]);
 });
 
-
+/**
+ * Global modules
+ */
+crypto  = require('crypto')
 walk    = require('walk');
 nowjs   = require('now');
 fs      = require('fs');
@@ -98,6 +100,7 @@ var Util       = require('./controller/util')
   , FileSystem = require('./controller/file')
   , User       = require('./controller/user')
   , Auth       = require('./controller/auth')
+  , Project    = require('./controller/project')
   ;
 
 /**
@@ -108,6 +111,7 @@ var Util       = require('./controller/util')
 , myFs   = new FileSystem()
 , user   = new User()
 , auth   = new Auth()
+, project= new Project()
 ;
 
 var routes = require('./routes');

@@ -1,0 +1,741 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"changed",
+				"changedByUser"
+			],
+			[
+				"in",
+				"input	Tag"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"ma",
+				"margin"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"BA",
+				"background-color"
+			],
+			[
+				"backg",
+				"background-color"
+			],
+			[
+				"min",
+				"min-height"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"fon",
+				"font-family"
+			],
+			[
+				"sess",
+				"session"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"paddin",
+				"padding-bottom"
+			],
+			[
+				"hei",
+				"height"
+			],
+			[
+				"he",
+				"height"
+			],
+			[
+				"cl",
+				"clear"
+			],
+			[
+				"bo",
+				"bottom"
+			],
+			[
+				"padd",
+				"padding-right"
+			],
+			[
+				"o",
+				"overflow"
+			],
+			[
+				"marg",
+				"margin-left"
+			],
+			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"margi",
+				"margin-left"
+			],
+			[
+				"p",
+				"position"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"ta",
+				"table-column"
+			],
+			[
+				"margin-",
+				"margin-bottom"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"hea",
+				"header	Tag"
+			],
+			[
+				"tex",
+				"text-align"
+			],
+			[
+				"font",
+				"font-family"
+			],
+			[
+				"back",
+				"background-color"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Nodejs/Nodejs.sublime-build",
+	"command_palette":
+	{
+		"height": 187.0,
+		"selected_items":
+		[
+			[
+				"diff",
+				"Git: Diff All"
+			],
+			[
+				"git ",
+				"Git: Stash Changes"
+			],
+			[
+				"git diff",
+				"Git: Diff All"
+			],
+			[
+				"git stas",
+				"Git: Stash Changes"
+			],
+			[
+				"diff ",
+				"Git: Open Modified Files"
+			],
+			[
+				"git diff ",
+				"Git: Diff Current File"
+			],
+			[
+				"git di",
+				"Git: Diff All"
+			],
+			[
+				"git pu",
+				"Git: Push"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"git add",
+				"Git: Add Current File"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"git push",
+				"Git: Push"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"push",
+				"Git: Push"
+			],
+			[
+				"git pull",
+				"Git: Pull"
+			],
+			[
+				"comm",
+				"Git: Commit"
+			],
+			[
+				"git his",
+				"Git: Commit history"
+			],
+			[
+				"git log",
+				"Git: Log All"
+			],
+			[
+				"git l",
+				"Git: Log All"
+			],
+			[
+				"git",
+				"Git: Graph All"
+			],
+			[
+				"git gra",
+				"Git: Graph All"
+			],
+			[
+				"java",
+				"Javap decompilation"
+			],
+			[
+				"conso",
+				"Set Syntax: R Console"
+			],
+			[
+				"gi",
+				"Git: Gui"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"proje",
+				"Project: Close"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"git: diff",
+				"Git: Diff Current File"
+			],
+			[
+				"git: di",
+				"Git: Diff Current File"
+			],
+			[
+				"package ",
+				"Preferences: Browse Packages"
+			],
+			[
+				"",
+				"HTML: Encode Special Characters"
+			],
+			[
+				"packa ins",
+				"Package Control: Install Package"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"di",
+				"Set Syntax: Diff"
+			],
+			[
+				"Snippet: jq",
+				"Snippet: jQuery AJAX call"
+			],
+			[
+				"pack ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 435.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/banduk/workspace/My_Space_Editor/routes/index.js",
+		"/home/banduk/workspace/My_Space_Editor/controller/user.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/rt.js",
+		"/home/banduk/workspace/My_Space_Editor/app.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/action/project.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/action/file.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/action/user.js",
+		"/home/banduk/workspace/My_Space_Editor/public/nowjs/now.js",
+		"/home/banduk/workspace/My_Space_Editor/public/editFile.html",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/editFile.js",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/editProject.js",
+		"/home/banduk/workspace/My_Space_Editor/controller/fileGroup.js",
+		"/home/banduk/workspace/My_Space_Editor/view/index.ejs",
+		"/home/banduk/workspace/My_Space_Editor/controller/file.js",
+		"/home/banduk/workspace/My_Space_Editor/controller/project.js",
+		"/home/banduk/workspace/My_Space_Editor/public/stylesheet/index.css",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/index.js",
+		"/home/banduk/workspace/My_Space_Editor/model/user.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/user.js~",
+		"/home/banduk/workspace/My_Space_Editor/view/signup.ejs",
+		"/home/banduk/workspace/My_Space_Editor/package.json",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/chat.js",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/right-click.js",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/file-browser.js",
+		"/home/banduk/workspace/My_Space_Editor/space.sublime-workspace",
+		"/home/banduk/workspace/My_Space_Editor/public/javascript/disable-selection.js",
+		"/home/banduk/workspace/My_Space_Editor/public/stylesheet/chat.css",
+		"/home/banduk/workspace/My_Space_Editor/view/chat.ejs",
+		"/home/banduk/workspace/space_editor_mvc/public/editFile.html",
+		"/home/banduk/workspace/My_Space_Editor/view/editFile.ejs",
+		"/home/banduk/workspace/space_editor_mvc/public/editProject.js",
+		"/home/banduk/workspace/My_Space_Editor/public/index.html",
+		"/home/banduk/workspace/My_Space_Editor/view/login.ejs",
+		"/home/banduk/workspace/My_Space_Editor/README.md",
+		"/home/banduk/workspace/space_editor_mvc/view/login.ejs",
+		"/home/banduk/workspace/space_editor_mvc/view/signup.ejs",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/project.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/index.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/index.js",
+		"/home/banduk/workspace/space_editor_mvc/controller/util.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/rt.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/user.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/file.js",
+		"/home/banduk/workspace/space_editor_mvc/controller/fileGroup.js",
+		"/home/banduk/workspace/space_editor_mvc/controller/file.js",
+		"/home/banduk/workspace/space_editor_mvc/controller/pass.js",
+		"/home/banduk/workspace/space_editor_mvc/package.json",
+		"/home/banduk/Desktop/perfectApp.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/actions.js",
+		"/home/banduk/workspace/space_editor_mvc/app.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/views.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/main.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/action/pass.js",
+		"/home/banduk/workspace/space_editor_mvc/model/user.js",
+		"/home/banduk/workspace/space_editor_mvc/routes/rest.js",
+		"/home/banduk/workspace/space_editor_mvc/public/javascripts/common/i18n/i18n.js",
+		"/home/banduk/workspace/My_Space_Editor/node_modules/socket.io/lib/manager.js",
+		"/home/banduk/workspace/space_editor_mvc/README.md",
+		"/home/banduk/workspace/space_editor_mvc/space_editor_mvc.sublime-project",
+		"/home/banduk/workspace/space_editor_mvc/.gitignore",
+		"/home/banduk/workspace/My_Space_Editor/routes/user.js",
+		"/home/banduk/workspace/My_Space_Editor/controllers/util.js",
+		"/home/banduk/workspace/My_Space_Editor/public/index.js",
+		"/home/banduk/workspace/My_Space_Editor/public/editFile.js",
+		"/home/banduk/workspace/My_Space_Editor/public/chat.css",
+		"/home/banduk/workspace/My_Space_Editor/public/chat.html",
+		"/home/banduk/workspace/My_Space_Editor/public/chat.js",
+		"/home/banduk/workspace/My_Space_Editor/routes/project.js",
+		"/home/banduk/workspace/My_Space_Editor/public/editProject.js",
+		"/home/banduk/workspace/My_Space_Editor/controllers/fileGroup.js",
+		"/home/banduk/workspace/My_Space_Editor/controllers/chat.js",
+		"/home/banduk/workspace/My_Space_Editor/node_modules/now/examples/express_example/app.js",
+		"/home/banduk/workspace/My_Space_Editor/public/index_old.js",
+		"/home/banduk/workspace/My_Space_Editor/controllers/file.js",
+		"/home/banduk/workspace/My_Space_Editor/public/index.css",
+		"/home/banduk/workspace/My_Space_Editor/node_modules/express/node_modules/connect/node_modules/qs/test/browser/jquery.js",
+		"/home/banduk/workspace/My_Space_Editor/rt.js",
+		"/home/banduk/workspace/My_Space_Editor/node_modules/now/doc/public/getting_started.md",
+		"/home/banduk/workspace/My_Space_Editor/node_modules/now/lib/user.js",
+		"/home/banduk/workspace/My_Space_Editor/controllers/realtime.js",
+		"/home/banduk/workspace/space/app.js",
+		"/home/banduk/workspace/space/controllers/file.js",
+		"/home/banduk/workspace/space/routes/file.js",
+		"/home/banduk/workspace/space/routes/project.js",
+		"/home/banduk/workspace/My_Space_Editor/space.sublime-project",
+		"/home/banduk/workspace/space/routes/util.js",
+		"/home/banduk/workspace/space/routes/pass.js",
+		"/home/banduk/workspace/space/routes/index.js",
+		"/home/banduk/workspace/space/models/user.js",
+		"/home/banduk/workspace/space/routes/fileGroup.js",
+		"/home/banduk/workspace/space/controllers/user.js",
+		"/home/banduk/workspace/space/controllers/project.js",
+		"/home/banduk/workspace/space/controllers/fileGroup.js",
+		"/home/banduk/workspace/space/controllers/util.js",
+		"/home/banduk/workspace/space/controllers/index.js",
+		"/home/banduk/workspace/space/views/login.ejs",
+		"/home/banduk/workspace/space/routes/main.js",
+		"/home/banduk/workspace/space/routes/user.js",
+		"/home/banduk/workspace/space/views/signup.ejs",
+		"/home/banduk/workspace/space/routes.js",
+		"/home/banduk/workspace/space/pass.js",
+		"/home/banduk/workspace/space/routes/routes.js",
+		"/home/banduk/workspace/space/package.json",
+		"/home/banduk/workspace/space/node_modules/socket.io/lib/manager.js",
+		"/home/banduk/workspace/pdbt/package.json",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/conf/application.conf",
+		"/home/banduk/Desktop/teste.txt",
+		"/home/banduk/Desktop/importante.mupi",
+		"/home/banduk/Desktop/amd-driver-installer-catalyst-12.10-x86.x86_64.run",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/conf/evolutions/default/1.sql",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/controllers/Mupi.java",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/Global.java",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/controllers/Feed.java",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/assets/javascripts/feed.js",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/views/mupiHelpers/mupiFormAutoCompleteInput.scala.html",
+		"/home/banduk/Desktop/chosen.html",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/models/Profile.java",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/models/Location.java",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/public/stylesheets/select2.css",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/assets/javascripts/mupiLocation.js",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/views/profile.scala.html",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/controllers/Profile.java",
+		"/home/banduk/Desktop/select2.css",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/assets/javascripts/profile.js",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/views/main.scala.html",
+		"/home/banduk/mbi/mupi/dev/workspace/mupi/app/views/privacyPolicies.scala.html",
+		"/home/banduk/.profile",
+		"/home/banduk/Downloads/mupi (1).pem"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 103.0,
+		"where_history":
+		[
+			"/home/banduk/workspace/My_Space_Editor, -/home/banduk/workspace/My_Space_Editor/node_modules/*, -/home/banduk/workspace/My_Space_Editor/public/js/*, -/home/banduk/workspace/My_Space_Editor/public/nowjs/*, -/home/banduk/workspace/My_Space_Editor/public/png/*",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*, -/home/banduk/workspace/space_editor_mvc/public/js/*, -/home/banduk/workspace/space_editor_mvc/public/nowjs/*, -/home/banduk/workspace/space_editor_mvc/public/png/*",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*, -/home/banduk/workspace/space_editor_mvc/public/js/ace/*",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*.*/*.*, -/home/banduk/workspace/space_editor_mvc/public/js/ace/*.*",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*.*, -/home/banduk/workspace/space_editor_mvc/public/js/ace/*.*",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*.*, -/home/banduk/workspace/space_editor_mvc/public/js/ace/",
+			"/home/banduk/workspace/space_editor_mvc, -/home/banduk/workspace/space_editor_mvc/node_modules/*.*",
+			"/home/banduk/workspace/space_editor_mvc",
+			"/home/banduk/workspace/My_Space_Editor",
+			"/home/banduk/workspace/My_Space_Editor, -/home/banduk/workspace/My_Space_Editor/node_modules/*.*",
+			"/home/banduk/workspace/My_Space_Editor",
+			"/home/banduk/workspace/My_Space_Editor, -/home/banduk/workspace/My_Space_Editor/node_modules/*.*",
+			"/home/banduk/workspace/My_Space_Editor, -/home/banduk/workspace/My_Space_Editor/node_modules",
+			"/home/banduk/workspace/My_Space_Editor",
+			"/home/banduk/workspace/My_Space_Editor/public",
+			"/home/banduk/workspace/space",
+			"/home/banduk/mbi/mupi/dev/workspace/mupi",
+			"/home/banduk/workspace/My_Space_Editor",
+			"/home/banduk/workspace/Space_Editor_ggreer/public",
+			"/home/banduk/workspace/Space_Editor",
+			"/home/banduk/mbi/mupi/dev/workspace/mupi",
+			"/home/banduk/mbi/mupi/dev/thirdPart/play-authenticate,/home/banduk/mbi/mupi/dev/workspace/mupi",
+			"/home/banduk/mbi/mupi/dev/thirdPart/play-authenticate",
+			"/home/banduk/mbi/meetup-battle/views",
+			"/home/banduk/mbi/mupi/dev",
+			"/home/banduk/mbi/mupi/dev/thirdPart/authlogin-buttons-logout",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"getByUsername",
+			"allUsersEditingProjectsIFrame",
+			"adding ",
+			"adding",
+			"AE",
+			"conmenu",
+			"openShiftShiftAsRename",
+			"shiftshiftRenameKeydown",
+			"toggleShiftShift",
+			"SHIFTSHIFT",
+			"safelyOpenFileFromEntry",
+			"chat",
+			"log",
+			"msg from",
+			"Editor",
+			"c_confirm",
+			"/index.js",
+			"/javascript/index.js",
+			"toggleShiftShift",
+			"keydow",
+			"toggleShiftShift",
+			"openShiftShiftAsBroadcast",
+			"shiftshiftBroadcastKeydown",
+			"s_teamMessageBroadcast",
+			"message",
+			"allUse",
+			"ShiftShift",
+			"shiftshift",
+			"openShiftShiftAsRename",
+			"openshi",
+			"shift",
+			"Shiftshi",
+			"shif",
+			"shiftshif",
+			"SHIFT_SHIFT_THRESH",
+			"preShiftShiftFocus",
+			"preShiftShiftFocusElement = ",
+			"shout",
+			"shiftshi",
+			"c_confirm",
+			"adding user to",
+			"adding user toi",
+			"AE:",
+			"\nvar preShiftShiftFocusElement = null;\nvar shiftShiftMouseDownFn = function(event){\n  if($(event.target).attr('id') != \"shiftshift\" && $(event.target).parents(\"#shiftshift\").length == 0 && $(event.target).parents(\"#topMenu\").length == 0){\n    $(document).unbind('mousedown', shiftShiftMouseDownFn);\n    closeShiftShift();\n  }\n}\nfunction toggleShiftShift(){\n  if($(\"#shiftshift\").is(\":visible\")){\n    closeShiftShift();\n  }else{\n    openShiftShiftAsBroadcast();\n  }\n}\nfunction openShiftShift(html, height, borderColor){\n  if(!$(\"#shiftshift\").is(\":visible\")){\n    // open it.\n    preShiftShiftFocusElement = document.activeElement;\n    $(\"#shiftshift\").css({height: height, \"border-color\": borderColor}).html(html).show();\n    $(\"#topMenu_CMD\").addClass(\"topMenuItemOpen\");\n    $(document).unbind('mousedown', shiftShiftMouseDownFn);\n    $(document).bind('mousedown', shiftShiftMouseDownFn);\n  }\n}\nfunction closeShiftShift(){\n  if($(\"#shiftshift\").is(\":visible\")){\n    // close it.\n    $(\"#shiftshift\").hide();\n    $(\"#topMenu_CMD\").removeClass(\"topMenuItemOpen\");\n    $(\"#shiftshiftInputDiv input\").blur();\n    $(preShiftShiftFocusElement).focus();\n  }\n}\nfunction shiftshiftBroadcastKeydown(event){\n  if(event.keyCode == 13){\n    // ENTER was pressed\n    var txt = $(\"#shiftshiftInputDiv input\").val();\n    if(txt != \"\"){\n      var usedAsCommand = false;\n      if(txt.length == 1){\n        switch(txt.toLowerCase()){\n          case \"f\":{\n            toggleFileBrowser();\n            usedAsCommand = true;\n            break;\n          }\n          case \"l\":{\n            toggleLog();\n            usedAsCommand = true;\n            break;\n          }\n          case \"o\":{\n            toggleLogOutput();\n            usedAsCommand = true;\n            break;\n          }\n        }\n      }\n      if(!usedAsCommand){\n        now.s_teamMessageBroadcast(\"personal\", txt);\n      }\n    }\n    $(\"#shiftshiftInputDiv input\").val(\"\");\n    if(!event.shiftKey){\n      toggleShiftShift();\n    }\n    return false;\n  }\n  if(event.keyCode == 27){\n    // ESC was pressed\n    toggleShiftShift();\n    return false;\n  }\n  return true;\n}\nfunction shiftshiftRenameKeydown(event, fname){\n  if(event.keyCode == 13){\n    // ENTER was pressed\n    var txt = $(\"#shiftshiftInputDiv input\").val();\n    if(txt != \"\"){\n      if(getUsersInFile(fname) != 0){\n        alert(\"cannot delete file, there are still users editing it!\");\n        return;\n      }\n      now.s_renameFile(fname, txt, function(fname, errs){\n        if(errs && errs.length > 0){\n          console.log(errs);\n          alert(\"Error renaming file: \"+fname+\"\\n\\n\" + errs[0]);\n        }else{\n          console.log(\"I just renamed the file. > \" + fname);\n        }\n      })\n    }\n    $(\"#shiftshiftInputDiv input\").val(\"\");\n    toggleShiftShift();\n    return false;\n  }\n}\nfunction shiftshiftDuplicateKeydown(event, fname){\n  if(event.keyCode == 13){\n    // ENTER was pressed\n    var txt = $(\"#shiftshiftInputDiv input\").val();\n    if(txt != \"\"){\n      if(getUsersInFile(fname) != 0){\n        alert(\"cannot duplicate file, there are still users editing it!\");\n        return;\n      }\n      now.s_duplicateFile(fname, txt, function(fname, errs){\n        if(errs && errs.length > 0){\n          console.log(errs);\n          alert(\"Error duplicating file: \"+fname+\"\\n\\n\" + errs[0]);\n        }else{\n          console.log(\"I just duplicated the file. > \" + fname);\n        }\n      })\n    }\n    $(\"#shiftshiftInputDiv input\").val(\"\");\n    toggleShiftShift();\n    return false;\n  }\n}\nfunction shiftshiftCommitKeydown(event){\n  if(event.keyCode == 13){\n    // ENTER was pressed\n    var txt = $(\"#shiftshiftInputDiv input\").val();\n    now.s_commitProject(txt, function(errs){\n      if(errs){\n        console.log(errs);\n        alert(\"Error committing project: \\n\\n >> \" + errs.message);\n      }else{\n        console.log(\"I just committed the project.\");\n      }\n    });\n    $(\"#shiftshiftInputDiv input\").val(\"\");\n    toggleShiftShift();\n    return false;\n  }\n}\nfunction openShiftShiftAsBroadcast(){\n  var html = \"\";\n  html += \"<div id='shiftshiftTitle'>BROADCAST</div>\";\n  html += \"<div id='shiftshiftInputDiv'><input type='text' onkeydown='return shiftshiftBroadcastKeydown(event);'/></div>\";\n  openShiftShift(html, 90, \"#00ACED\");\n  $(\"#shiftshiftInputDiv input\").val(\"\").focus();\n}\nfunction openShiftShiftAsRename(fname){\n  var html = \"\";\n  html += \"<div id='shiftshiftTitle'>RENAME</div>\";\n  html += \"<div id='shiftshiftFilename'>\"+fname+\" <span>to...</span></div>\";\n  html += \"<div id='shiftshiftInputDiv'><input type='text' onkeydown='return shiftshiftRenameKeydown(event, \\\"\"+fname+\"\\\");'/></div>\";\n  openShiftShift(html, 130, \"#FFF100\");\n  setTimeout(function(){\n    $(\"#shiftshiftInputDiv input\").val(fname).focus();\n  }, 50);\n}\nfunction openShiftShiftAsDuplicate(fname){\n  var html = \"\";\n  html += \"<div id='shiftshiftTitle'>DUPLICATE</div>\";\n  html += \"<div id='shiftshiftFilename'>\"+fname+\" <span>as...</span></div>\";\n  html += \"<div id='shiftshiftInputDiv'><input type='text' onkeydown='return shiftshiftDuplicateKeydown(event, \\\"\"+fname+\"\\\");'/></div>\";\n  openShiftShift(html, 130, \"#FFF100\");\n  setTimeout(function(){\n    $(\"#shiftshiftInputDiv input\").val(fname).focus();\n  }, 50);\n}\nfunction openShiftShiftAsDelete(fname){\n  var html = \"\";\n  html += \"<div id='shiftshiftTitle'>DELETE</div>\";\n  html += \"<div id='shiftshiftFilename'>\"+fname+\"</div>\";\n  html += \"<div id='shiftshiftBtn_Cancel' class='shiftshiftBtn' onclick='closeShiftShift();'>cancel file termination</div>\";\n  html += \"<div id='shiftshiftBtn_Delete' class='shiftshiftBtn' onclick='deleteFile(\\\"\"+fname+\"\\\"); closeShiftShift();'>DELETE</div>\";\n  openShiftShift(html, 130, \"#FF3600\");\n  $(\"#shiftshiftInputDiv input\").val(\"\").focus();\n}\nfunction openShiftShiftAsCommit(){\n  var html = \"\";\n  html += \"<div id='shiftshiftTitle'>COMMIT</div>\";\n  html += \"<div id='shiftshiftFilename'><span>Notes...</span></div>\";\n  html += \"<div id='shiftshiftInputDiv'><input type='text' onkeydown='return shiftshiftCommitKeydown(event);'/></div>\";\n  openShiftShift(html, 130, \"#FFF100\");\n  setTimeout(function(){\n    $(\"#shiftshiftInputDiv input\").val(\"\").focus();\n  }, 50);\n  if(fileIsUnsaved){\n    saveFileToServer();\n  }\n}\n",
+			"Shiftsh",
+			"shift",
+			"console.",
+			"Nice, I have",
+			"Nide, I have",
+			"now.name",
+			"c_updateCollabCursor",
+			"name",
+			".name",
+			"Authenticated",
+			".name",
+			"this.now.na",
+			"this.now.u",
+			"c_updateCollabCursor",
+			"console.lo",
+			"SETTING G",
+			"user.name",
+			".name",
+			"username",
+			"addUserToFileGroup",
+			"_username",
+			"addUserToFileGroup",
+			"clientId",
+			"user.clientId",
+			"clientId",
+			"vat",
+			"getUserFromCache",
+			"about",
+			"TEAM_ID",
+			"_username",
+			"res.cookie",
+			"res.cookies",
+			"req.cookies",
+			"req.cookies.u",
+			"req.cookies",
+			"Authenticated:",
+			"Range",
+			"TextMode",
+			"ace/range",
+			"ace/",
+			"ace",
+			"editfile",
+			"alert",
+			"createNewFileFromInputs",
+			"createNewFile",
+			"selectPaneScreen",
+			"paneScreenSelected",
+			"alert",
+			"TODO",
+			"ODO: make sure file is saved before opening over it..",
+			"ODO: make sure file is saved before opening over it... ",
+			"AAAA",
+			"PROJECT",
+			"project1",
+			"AAAAAAA",
+			"team",
+			"localFileC",
+			"c_confirmProject",
+			"confirm",
+			"var Range",
+			"Range",
+			"process",
+			"c_processMessage",
+			"s_teamMessageBroadcast",
+			"shiftshift",
+			"require",
+			"diffmatchpatch",
+			"D",
+			"Diff-Match-Patch.",
+			"c_confirmProject",
+			"now",
+			"shiftshift",
+			"id='shiftshift",
+			"id=\"shiftshift",
+			"ID=\"shiftshift",
+			"topMenu_CMD",
+			"shiftShiftMouseDownFn",
+			"Refused to display do",
+			"loadAllProjectFiles",
+			"// ------",
+			"c_processUserFileEvent",
+			"/font",
+			"font",
+			"png"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"now.username",
+			"user.username",
+			"req.session.u",
+			"/../img",
+			"/img",
+			"font",
+			"this",
+			"utl.occurrences",
+			"STATIC_PROVIDER",
+			"TEAM_ID",
+			"chat-container",
+			"myFs.usersInGroup",
+			"myFs.localFileSave",
+			"myFs.localFileFetch",
+			"myFs.localFileIsMostRecent",
+			"name",
+			"../img/spinner.gif",
+			"jQuery",
+			".html(\"Erro no servidor, por favor tente novamente mais tarde\")",
+			"(\"javascripts/",
+			"(\"stylesheets/",
+			"(\"javascripts/",
+			"",
+			";",
+			"jQuery",
+			"\"",
+			">",
+			"<",
+			"\\n",
+			"logged_home"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 268.0
+	},
+	"output.git":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"main",
+				"app/views/main.scala.html"
+			],
+			[
+				"alert",
+				"app/assets/javascripts/mupi-alertHandler.js"
+			],
+			[
+				"feed",
+				"workspace/mupi/app/assets/javascripts/feedPaginate.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 322.0,
+	"status_bar_visible": true
+}

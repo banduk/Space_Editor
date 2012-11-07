@@ -14,8 +14,6 @@ module.exports = function(){
       // add to NOW group.
       g.addUser(userObj.clientId);
 
-      console.log('adding user to filegroup: ' + userObj);
-
       // add to local group.
       userObj.grouplist.push(groupname);
 
@@ -31,6 +29,7 @@ module.exports = function(){
       //console.log(g.users[userObj.clientId]);
     }
   }
+
   this.removeUserFromFileGroup = function(userObj, fname){
     var groupname = userObj.TEAM_ID;
     if(fname  && fname !== ""){
