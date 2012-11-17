@@ -1,3 +1,6 @@
+//IMPORTANT!! Defining now as global so we can access it from other iframes
+window.now = now;
+
 // -----------------------------------------
 // Right-click context menu plugin for jQuery...
 // -----------------------------------------
@@ -108,6 +111,8 @@
   });
 };
 })(jQuery);
+
+
 // ---------------------------------------------------------
 // Main functions...
 // ---------------------------------------------------------
@@ -130,8 +135,6 @@ function safelyOpenFileFromEntry(el){
     }
     closeFileBrowser();
   }else{
-    console.log("output log disabled for demo.");
-    return;
     console.log("Undefined filename... showing log.");
     var divToPopulate = $(".paneScreenSelected");
     if(divToPopulate.length > 0){
@@ -144,14 +147,16 @@ function safelyOpenFileFromEntry(el){
 }
 function populateEditPane(editPane, fname){
   if(fname){
-    $(editPane).html("<iframe src='/editFile.html?project="+PROJECT+"#fname="+fname+"'></iframe><div class='paneScreen' onmousedown='selectPaneScreen(this);'></div>");
+    $(editPane).html("<iframe class='editorFrame' src='/editFile.html?project="+TEAM_ID+"#fname="+fname+"'></iframe><div  onmousedown='selectPaneScreen(this);' class='paneScreen' onmousedown='selectPaneScreen(this);'></div>");
+    //TODO: try to set the chat to show from here
+    // $(editPane).children('.editorFrame').contents().bind('click', function(){alert("eba")});
   }else{
-    $(editPane).html("<iframe src='http://logs.chaoscollective.org/live?log="+PROJECT+"'></iframe><div class='paneScreen' onmousedown='selectPaneScreen(this);'></div>");
+    $(editPane).html("<iframe class='editorFrame' ></iframe><div  onmousedown='selectPaneScreen(this);' class='paneScreen'></div>");
   }
 }
-/*function populateChatPane(){
-  $("#pane_chat").html("<iframe src='chat.html'></iframe><div class='paneScreen'></div>");
-}*/
+function populateChatPane(pane){
+  pane.html("<iframe src='/chat.html'></iframe>");
+}
 
 function setUsersInFile(fname, usersInFile){
   for(var i=0; i<mostRecentFilesAndInfo.length; i++){
@@ -205,22 +210,18 @@ function getProjectFileInfo(fname){
 }
 
 
-now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
-  console.log("msg from "+fromUserId+": " + message);
-  var userColor = userColorMap[fromUserId%userColorMap.length];
-  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  notifyAndAddMessageToLog(userColor, fromUserName, msg);
-}
+  now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
+    console.log("msg from "+fromUserId+": " + message);
+    var userColor = userColorMap[fromUserId%userColorMap.length];
+    var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    notifyAndAddMessageToLog(userColor, fromUserName, msg);
+  }
 
-now.c_confirmProject   = function(TEAM_ID){
-  now.TEAM_ID = TEAM_ID;
-  console.log("PROJECT: " + now.TEAM_ID);
-  // <a href='http://"+TEAM_ID+".chaoscollective.org/'
-  $("#topProjName").html(TEAM_ID+" &raquo;");
-}
-
-
-
+  now.c_confirmProject   = function(TEAM_ID){
+    now.TEAM_ID = TEAM_ID;
+    console.log("TEAM_ID: " + now.TEAM_ID);
+    $("#topProjName").html(TEAM_ID+" &raquo;");
+  }
 
 // ---------------------------------------------------------
 // File browser
@@ -376,11 +377,13 @@ function openFileBrowser(){
   $(document).bind('mousedown', fileBrowserMouseDownFn);
   setTimeout(loadAllProjectFiles, 50);
 }
+
 function selectPaneScreen(p){
   $(".paneScreen").removeClass("paneScreenSelected").show();
   $(p).addClass("paneScreenSelected");
   event.stopPropagation();
 }
+
 function createNewFile(el){
   if($(el).html() == "New File..."){
     $(el).html("New File...<input id='newfileInputName' type='text' onkeydown='if(event.keyCode==13){createNewFileFromInputs();}if(event.keyCode==27){$(this).parent().html(\"New File...\");}'/><select id='newfileInputType'><option>.js</option><option>.json</option><option>.css</option><option>.html</option><option>.txt</option><option>.styl</option><option>.less</option></select><input type='submit' value='ok' onclick='createNewFileFromInputs(); event.stopPropagation();' />");
@@ -401,7 +404,7 @@ function createNewFileFromInputs(){
   var newFilename = newfname + newftype;
   console.log("Requesting file creation: " + newFilename);
   if(newFilename != ""){
-    $.post("/createFile?project="+PROJECT, {fname: newFilename}, function(data){
+    $.post("/createFile?project="+TEAM_ID, {fname: newFilename}, function(data){
       if(data && data.indexOf("FAIL") !== 0){
         shoutCreatedFile(data);
       }else{
@@ -411,7 +414,7 @@ function createNewFileFromInputs(){
   }
 }
 function deleteFile(fname){
-  $.post("/deleteFile?project="+PROJECT, {fname: fname}, function(data){
+  $.post("/deleteFile?project="+TEAM_ID, {fname: fname}, function(data){
     if(data && data.indexOf("FAIL") !== 0){
       console.log("I just deleted the file. > " + fname);
       shoutDeletedFile(data);
@@ -504,7 +507,7 @@ function shiftshiftRenameKeydown(event, fname){
     // ENTER was pressed
     var txt = $("#shiftshiftInputDiv input").val();
     if(txt != ""){
-      $.post("/renameFile?project="+PROJECT, {fname: fname, newfname: txt}, function(data){
+      $.post("/renameFile?project="+TEAM_ID, {fname: fname, newfname: txt}, function(data){
         if(data && data.indexOf("FAIL") !== 0){
           console.log("I just renamed the file. > " + fname + " to " + data);
           shoutRenamedFile(fname, data);
@@ -527,7 +530,7 @@ function shiftshiftDuplicateKeydown(event, fname){
         alert("cannot duplicate file, there are still users editing it!");
         return;
       }
-      $.post("/duplicateFile?project="+PROJECT, {fname: fname, newfname: txt}, function(data){
+      $.post("/duplicateFile?project="+TEAM_ID, {fname: fname, newfname: txt}, function(data){
         if(data && data.indexOf("FAIL") !== 0){
           console.log("I just duplicated the file. > " + fname + " to " + data);
           shoutDuplicatedFile(fname, data);
@@ -648,7 +651,7 @@ function toggleLogOutput(){
 // ---------------------------------------------------------
 function launchProject(){
   console.log("Attempting to launch project...");
-  $.post("/launchProject?project="+PROJECT, function(data){
+  $.post("/launchProject?project="+TEAM_ID, function(data){
     if(data && data.indexOf("FAIL") !== 0){
       shoutLaunchedProject();
     }else{
@@ -656,31 +659,12 @@ function launchProject(){
     }
   });
 }
-function loadAllProjectFiles(tryToLoadFirstFiles){
-  $.get("/allProjectFiles?project="+PROJECT, function(data){
+function loadAllProjectFiles(){
+  $.get("/allProjectFiles?project="+TEAM_ID, function(data){
     if(data){
       try{
         var filesAndInfo = JSON.parse(data);
         updateFileBrowserFromFileList(filesAndInfo);
-        // first time only, check if index.less exists: otherwise, fallback to index.css.
-        if(tryToLoadFirstFiles){
-          console.log("-- trying to load first file for pane 0 --");
-          if(!getProjectFileInfo("public/index.less")){
-            if(getProjectFileInfo("public/index.css")){
-              populateEditPane($("#pane_0"), "public/index.css");
-            }else{
-              if(getProjectFileInfo("public/index.html")){
-                populateEditPane($("#pane_0"), "public/index.html");
-              }else{
-                if(getProjectFileInfo("_project.json")){
-                  populateEditPane($("#pane_0"), "_project.json");
-                }else{
-                  console.log("-- no file seems suitable for initial pane 0 --");
-                }
-              }
-            }
-          }
-        }
       }catch(ex){
         console.log("JSON fail?");
         console.log(ex);
@@ -842,22 +826,18 @@ function setupJoin(j){
 // ---------------------------------------------------------
 // READY! :)
 // ---------------------------------------------------------
-var PROJECT = "project1";
+var TEAM_ID = "team";
 $(window).ready(function() {
   var getProject = getURLGetVariable("project");
   if(getProject){
-   PROJECT = getProject;
+    TEAM_ID = getProject;
   }
-  document.title = PROJECT;
-  //populateEditPane($("#pane_0"), "public/index.less");
-  //populateEditPane($("#pane_1"), "app.js");
-  //populateEditPane($("#pane_2"), "");
-  //populateEditPane($("#pane_2"), "public/index.js");
+  document.title = TEAM_ID;
 
   populateEditPane($("#pane_0"), "");
   populateEditPane($("#pane_1"), "");
   populateEditPane($("#pane_2"), "");
-/*  populateChatPane($("#pane_chat"));*/
+  populateChatPane($("#pane_chat"));
 
 
   $(".join").each(function(index, el){
@@ -882,9 +862,6 @@ $(window).ready(function() {
       lastShiftTime = 0;
     }
   });
-
-
-  //setTimeout(function(){alert("\nWelcome to Space!\n\nSpace is a real-time, collaborative code editor created by the Chaos Collective.\n\nWhen other users are online, you'll see their cursors directly in the code. Click the button at the bottom left to open the file browser and see where users are.\n\nGo forth, explore Space, and write some code with your friends!")}, 5000);
 });
 
 

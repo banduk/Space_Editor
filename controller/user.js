@@ -6,7 +6,8 @@ module.exports = function(){
   };
 
   this.index = function(req,res,next){
-    res.render('index');
+    req.url = "index.html";
+    STATIC_PROVIDER(req, res, next);
   };
 
   /*SIGNUP*/

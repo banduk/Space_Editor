@@ -1,102 +1,210 @@
-/**{
-  color: white;
-  font-family: 'Century Gothic','URW Gothic L','Gill Sans',Helvetica,sans-serif;
-  font-size: 15px;
+/*
+// NOTE: Do not edit this CSS file directly. It is generated automatically on LAUNCH.
+// Edit the Stylus file (index.styl) instead... :)
+*/
+
+@font-face {
+  font-family: "Inconsolata";
+  src: url("./../font/Inconsolata.otf");
+}
+body {
+  overflow: hidden;
   margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #000;
+  opacity: .99;
+}
+
+/*OLD SCROLLBAR*/
+/*::-webkit-scrollbar-thumb {
+  border: 2px solid #111;
+  background: #282a2e;
+  border-radius: 0px;
+}
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: #111;
+}*/
+
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+height: 1px;
+display: block;
+background-color: transparent;
+}
+::-webkit-scrollbar-track-piece  {
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  background: rgba(245,245,255,.15);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFF;
+}
+
+::-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+}
+
+
+#top {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  height: 22px;
+  background: #080808;
+  border-bottom: 1px solid #000;
+}
+
+#topStatus {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+#topProjName, #topFileName {
+  display: inline-block;
+  z-index: 1;
+  font-size: 12px;
+  font-weight: 350;
+  text-align: left;
+  line-height: 20px;
+  vertical-align: middle;
+  padding-left: 2px;
+  color: #888;
+  font-family: Arial, sans-serif;
+}
+#topFileName{
+  color: #ac1;
+  font-weight: 350;
+  font-size: 11px;
+  padding-left: 1px;
+  line-height: 14px;
+  font-family: monospace;
+}
+
+
+
+#gChat{
+  right: 2px;
+  top: 2px;
+  height: 18px;
+  width: 18px;
+  position: absolute;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+#gChat:hover{
+  background-color: #222;
+}
+#gChat:active{
+  background-color: #444;
+}
+ #globalChatHeader{
+  color: #999;
+  padding: 0 4px;
+  line-height: 22px;
+  position: absolute;
+  padding-left: 5px;
+  font-size: 12px;
+  width: 100%;
+  background-color: #080808;
+  color: #888;
+  font-family: Arial, sans-serif;
+ }
+#globalChat, #globalChatHeader{
+  z-index: 4;
+}
+#globalChat{
   background-color: #000;
 }
 
-.chatPane{
-  position: relative;
-}
-
-.chat-header{
-  width: 100%;
-  height: 20px;
-  font-size: 13px;
-  line-height: 20px;
-  background-color: #0c0c0c;
-  text-align: center;
-  font-weight: bold;
-  position: fixed;
-  padding: 0;
-  margin: 0;
-  z-index: 4;
-}
-
-a { text-decoration: none; }
-a:focus { outline: 0; }
-p { font-size: 15px; margin: 0 0 20px 0; }
-#page-wrap { width: 440px; margin: 80px auto; }
-h1 { font: bold 40px Sans-Serif; margin: 0 0 20px 0; }
-
-.hide { position: absolute; top: -9999px; left: -9999px; }
-
-
-
-#chat-container { -moz-box-shadow: 0 0 5px #666;
-  -webkit-box-shadow: 0 0 5px #666;
-  height: 100%;
+#fileChats, #globalChat{
+  color: #999;
+  margin: 0px;
   position: absolute;
-  width: 100%;
-  margin-bottom: -20px;
-}
-
-.chat-no-files{
-   overflow: hidden;
-   margin-top: 20px;
-   position: fixed;
-   width: 100%;
-   text-align: center;
-}
-
-
-#chat-container .nav { overflow: hidden; margin-top: 20px; position: fixed; width: 100%; z-index:3;}
-#chat-container .nav li { width: 33.3%; float: left; margin: 0; }
-#chat-container .nav li.last { margin-right: 0; }
-#chat-container .nav li a { display: block; margin: 5px; background: #959290; color: white; font-size: 10px; text-align: center; border: 0; }
-#chat-container .nav li a:hover { background-color: #111; }
-
-#chat-container ul { list-style: none; }
-#chat-container ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
-#chat-container ul li a:hover { background: #fe4902; color: white; }
-#chat-container ul li:last-child a { border: none; }
-
-#chat-container ul li.nav-one a.current, #chat-container ul.featured li a:hover { background-color: #0575f4; color: white; }
-#chat-container ul li.nav-two a.current, #chat-container ul.core li a:hover { background-color: #d30000; color: white; }
-#chat-container ul li.nav-three a.current, #chat-container ul.jquerytuts li a:hover { background-color: #8d01b0; color: white; }
-#chat-container ul li.nav-four a.current, #chat-container ul.classics li a:hover { background-color: #FE4902; color: white; }
-
-#chat-container .list-wrap{
-  margin-top: 50px;
-padding-bottom: 22px;
-}
-
-
-.msg-hist{
-  margin: 5px;
-}
-
-.msg-input{
-  width: 70%;
-  margin: 0;
-  padding: 0;
-}
-.msg-send{
-  margin: 0;
-  padding: 0;
-}
-
-.msg-input-container{
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-  border: none;
-  background-color: #222;
-  outline-color: #444;
-  position: fixed;
+  top: 20px;
   bottom: 0px;
-  text-align: center;
+  left: 0px;
+  right: 0px;
+  font-size: 11px;
+  line-height: 12px;
+  font-family: "Inconsolata", "Courier New", monospace;
+  overflow-y: scroll;
+  margin-bottom: 28px;
 }
-*/
+
+.fileChat{
+  display: none;
+}
+
+.chat-msg{
+  color: #ddd;
+  padding: 2px 0;
+  margin: 2px 0;
+  float: left;
+  width: 100%;
+  background-color: #111;
+}
+.chat-info{
+  display: block;
+  float: left;
+  border-right: 1px solid #000;
+}
+.chat-txt{
+  float: left;
+  display: block;
+  margin-left: 10px;
+}
+
+#bottom {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  height: 28px;
+  background: #000;
+  z-index: 10001;
+}
+
+#chatInputDiv {
+  position: absolute;
+  left: 2px;
+  bottom: 2px;
+  right: 44px;
+  height: 24px;
+  background: #1a1a1a;
+}
+#chatInputDiv input {
+  position: absolute;
+  left: 5px;
+  top: 0px;
+  right: 10px;
+  bottom: 0px;
+  font-size: 13px;
+  color: #fff;
+  background: none;
+  border: none;
+}
+#chatInputDiv input:focus {
+  outline: none;
+}
+
+#chatSendButton{
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  height: 24px;
+  background: #2c2c2c;
+  width: 40px;
+  border: none;
+}

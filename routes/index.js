@@ -9,8 +9,8 @@ exports.route = function() {
   /**
    * Real time stuff
    */
-  rt.config();
   rt.route();
+  rt.config();
 
   /**
    * User routes
@@ -21,6 +21,9 @@ exports.route = function() {
   app.get ('/login',  unrestrict, user.login);
   app.post('/login',  unrestrict, user.doLogin);
   app.get ('/logout', restrict,   user.Logout);
+
+  //DOCS
+  //app.get ('/doc', function(req, res){req.url = 'docs/index.html'});
 
   /**
    * File routes

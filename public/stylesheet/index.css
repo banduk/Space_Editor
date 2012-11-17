@@ -824,14 +824,14 @@ background-color: transparent;
 /*
  * Chat
  */
-.chatPane {
+.chatPane, .gChatPane {
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
 }
-.chatPane iframe {
+.chatPane iframe, .gChatPane iframe{
   position: absolute;
   left: 0;
   top: 0;
@@ -917,12 +917,12 @@ background-color: transparent;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 300px;
+  width: 200px;
 }
 .joinRight {
   position: absolute;
   right: 0;
-  left: 300px;
+  left: 200px;
   top: 0;
   bottom: 0;
 }

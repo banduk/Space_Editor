@@ -1,3 +1,6 @@
+// IMPORTANT! Getting now variable from window
+var now = parent.now;
+
 // -----------------------------------------
 // Right-click context menu plugin for jQuery...
 // -----------------------------------------
@@ -108,25 +111,6 @@
   });
 };
 })(jQuery);
-
-
-
-
-
-now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
-  console.log("msg from "+fromUserId+": " + message);
-  var userColor = userColorMap[fromUserId%userColorMap.length];
-  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  notifyAndAddMessageToLog(userColor, fromUserName, msg);
-}
-
-now.c_confirmProject   = function(TEAM_ID){
-  now.TEAM_ID = TEAM_ID;
-  console.log("PROJECT: " + now.TEAM_ID);
-  // <a href='http://"+TEAM_ID+".chaoscollective.org/'
-  $("#topProjName").html(TEAM_ID+" &raquo;");
-}
-
 
 
 // -----------------------------------------
@@ -374,6 +358,23 @@ var updateWithDiffPatchesLocal = function(id, patches, md5){
 // -----------------------------------------
 var userColorMap = ["#9DDC23", "#00FFFF", "#FF308F", "#FFD400", "#FF0038", "#7C279B", "#FF4E00", "#6C8B1B", "#0A869B"];
 
+
+
+now.c_processMessage        = function(scope, type, message, fromUserId, fromUserName){
+  console.log("msg from "+fromUserId+": " + message);
+  var userColor = userColorMap[fromUserId%userColorMap.length];
+  var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  notifyAndAddMessageToLog(userColor, fromUserName, msg);
+}
+
+now.c_confirmProject   = function(TEAM_ID){
+  now.TEAM_ID = TEAM_ID;
+  console.log("TEAM_ID: " + now.TEAM_ID);
+  // <a href='http://"+TEAM_ID+".chaoscollective.org/'
+  $("#topProjName").html(TEAM_ID+" &raquo;");
+}
+
+
 now.c_updateCollabCursor    = function(id, name, range, changedByUser){
   if(id == now.core.clientId){
     //console.log("myUpdate");
@@ -519,8 +520,11 @@ now.c_processUserEvent      = function(event, fromUserId, fromUserName){
     mostRecentTotalUserCount--;
     notifyAndAddMessageToLog(userColor, fromUserName, "has left.");
   }
-  /*updateHUD();*/
+  // updateHUD();
 }
+
+
+
 // ---------------------------------------------------------
 // Main functions...
 // ---------------------------------------------------------
@@ -557,6 +561,7 @@ function sendTextChange(){
   now.s_sendDiffPatchesToCollaborators(infile, patches, md5);
   return true;
 }
+
 function openFileFromServer(fname, forceOpen){
   if(infile == fname && (!forceOpen)){
     console.log("file is already open.");
@@ -658,6 +663,7 @@ function openFileFromServer(fname, forceOpen){
   initialFileloadTimeout = null;
   setFileStatusIndicator("unknown");
 }
+
 function fileHasExtention(f, ext){
   return ((f.indexOf(ext) > 0 && f.indexOf(ext) == f.length-ext.length));
 }
@@ -1009,7 +1015,7 @@ function autoFoldCodeProgressive(){
 // ---------------------------------------------------------
 // Shift+Shift
 // ---------------------------------------------------------
-/*
+
 var preShiftShiftFocusElement = null;
 var shiftShiftMouseDownFn = function(event){
   if($(event.target).attr('id') != "shiftshift" && $(event.target).parents("#shiftshift").length == 0 && $(event.target).parents("#topMenu").length == 0){
@@ -1025,6 +1031,7 @@ function toggleShiftShift(){
   }
 }
 function openShiftShift(html, height, borderColor){
+
   if(!$("#shiftshift").is(":visible")){
     // open it.
     preShiftShiftFocusElement = document.activeElement;
@@ -1069,7 +1076,22 @@ function shiftshiftBroadcastKeydown(event){
         }
       }
       if(!usedAsCommand){
-        now.s_teamMessageBroadcast("personal", txt);
+        if(txt.substring(0,2) == "@@")
+          now.s_teamMessageBroadcast("personal", txt);
+        else{
+          var pane = $(top.document.activeElement).parents(".editPane");
+          if(pane && pane.length > 0){
+            var fullFileName = $(pane).children('.editorFrame').attr('src');
+            if(fullFileName){
+              var regex = /(fname=[a-zA-Z0-9]+\.[a-zA-Z0-9]+)/i;
+              var regex2 = /([a-zA-Z0-9]+\.[a-zA-Z0-9]+)/i;
+              var fname = fullFileName.match(regex)[0].match(regex2);
+              if(fname[0]){
+                now.s_sendFileChatMessage(fname[0], txt);
+              }
+            }
+          }
+        }
       }
     }
     $("#shiftshiftInputDiv input").val("");
@@ -1197,7 +1219,7 @@ function openShiftShiftAsCommit(){
     saveFileToServer();
   }
 }
-*/
+
 // ---------------------------------------------------------
 // Shout: parent message passing
 // ---------------------------------------------------------
@@ -1267,36 +1289,6 @@ function getURLHashVariable(variable){
 // ---------------------------------------------------------
 // READY! :)
 // ---------------------------------------------------------
-var alreadyConnected = false;
-now.ready(function(){
-  if(alreadyConnected){
-    // seeing ready after already being connected.. assume server was reset!
-    //alert("editor server was reset... \nreloading page...");
-    window.location.reload();
-  }
-  nowIsOnline = true;
-  alreadyConnected = true;
-  console.log("Using NowJS -- this clientId: " + now.core.clientId);
-  now.s_sendUserEvent("join"); // let everyone know who I am!
-  setInterval(ifOnlineLetCollaboratorsKnowImHere, TIME_UNTIL_GONE/3);
-  var specifiedFileToOpen = getURLHashVariable("fname");
-  if(specifiedFileToOpen){
-    openFileFromServer(specifiedFileToOpen, true);
-  }else{
-    openFileFromServer("app.js", true);
-  }
-  now.core.on('disconnect', function () {
-    console.log("DISCONNECT... Setting nowIsOnline to false"); // this.user.clientId
-    nowIsOnline = false;
-    setFileStatusIndicator("offline");
-  });
-  now.core.on('connect', function () {
-    console.log("CONNECT... Setting nowIsOnline to true"); // this.user.clientId
-    nowIsOnline = true;
-    setFileStatusIndicator("default");
-  });
-  console.log(now);
-});
 $(document).ready(function() {
   var getProject = getURLGetVariable("project");
   if(getProject){
@@ -1367,7 +1359,7 @@ $(document).ready(function() {
   setInterval(ifOnlineVerifyCollaboratorsAreStillHere_CleanNotifications_AutoSave, 1000);
 
   var lastShiftTime = 0;
-  /*
+
   var SHIFT_SHIFT_THRESH = 300;
   $(document).keydown(function(event){
     if(event.shiftKey && event.keyCode == 16){
@@ -1382,7 +1374,7 @@ $(document).ready(function() {
       lastShiftTime = 0;
     }
   });
-  */
+
   $("#top").disableSelection();
 
   //if(Math.abs(screen.width-window.innerWidth) > 20 || Math.abs(screen.height-window.innerHeight) > 20) {
@@ -1395,4 +1387,39 @@ $(document).ready(function() {
     console.log("editor theme hack to ensure painting...");
     editor.setTheme("ace/theme/chaos");
   }, 100);
+
+
+  // After setting the editor!
+  var alreadyConnected = false;
+  now.ready(function(){
+    if(alreadyConnected){
+      // seeing ready after already being connected.. assume server was reset!
+      //alert("editor server was reset... \nreloading page...");
+      window.location.reload();
+    }
+    nowIsOnline = true;
+    alreadyConnected = true;
+    console.log("Using NowJS -- this clientId: " + now.core.clientId);
+    now.s_sendUserEvent("join"); // let everyone know who I am!
+    setInterval(ifOnlineLetCollaboratorsKnowImHere, TIME_UNTIL_GONE/3);
+    var specifiedFileToOpen = getURLHashVariable("fname");
+    if(specifiedFileToOpen){
+      openFileFromServer(specifiedFileToOpen, true);
+    }else{
+      openFileFromServer("app.js", true);
+    }
+    now.core.on('disconnect', function () {
+      console.log("DISCONNECT... Setting nowIsOnline to false"); // this.user.clientId
+      nowIsOnline = false;
+      setFileStatusIndicator("offline");
+    });
+    now.core.on('connect', function () {
+      console.log("CONNECT... Setting nowIsOnline to true"); // this.user.clientId
+      nowIsOnline = true;
+      setFileStatusIndicator("default");
+    });
+    console.log(now);
+  });
+
+
 });

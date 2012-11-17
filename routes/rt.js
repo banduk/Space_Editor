@@ -11,17 +11,18 @@ var everyone = nowjs.initialize(
   );
 
 this.config = function() {
-
-
   nowjs.on('connect', function () {
 
-    if(this.now.TEAM_ID !== '')
+    if(this.now.TEAM_ID != '' && this.now.TEAM_ID != null){
       this.user.TEAM_ID = this.now.TEAM_ID;
-    else
+    } else {
       this.user.TEAM_ID   = TEAM_ID;
+      this.now.TEAM_ID    = TEAM_ID;
+    }
 
     var u = user.getByUsername(this.user.cookie['_username']);
     if(u){
+
       // now populate it..
       this.user.about       = {};
       this.user.about._id   = u.username;
@@ -36,6 +37,14 @@ this.config = function() {
 
       // the blank file group is the the team group.
       fg.addUserToFileGroup(this.user, "");
+
+
+      // var output = '';
+      // var object = this.now;
+      // for (property in object) {
+      //   output += property + ': ' + object[property]+'; ';
+      // }
+      // console.warn(output);
 
       // Confirm the project to the user
       this.now.c_confirmProject(this.user.TEAM_ID);
@@ -144,20 +153,22 @@ this.route = function() {
   };
   //-------
 
-
-  /*everyone.now.s_sendFileChat = function(fname, message){
+  everyone.now.s_sendFileChatMessage = function(fname, message){
     var filegroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname);
     var fromUserId   = this.user.clientId;
     var fromUserName = this.now.username;
-    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName);
-  };*/
+    var date = moment().format('HH:mm');
+    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName, date);
+  };
 
   everyone.now.s_teamMessageBroadcast      = function(type, message){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
     var scope      = "team";
     var fromUserId = this.user.clientId;
     var fromUserName = this.now.username;
-    teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
+    var date = moment().format('HH:mm');
+    // teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
+    teamgroup.now.c_receiveGlobalChatChat(message, fromUserId, fromUserName, date);
   };
   everyone.now.s_leaveFile                 = function(fname){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
