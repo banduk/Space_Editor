@@ -69,9 +69,20 @@
 
       // keep track locally of users in group.
       this.usersInGroupPlusPlus(groupname);
+
       if(fname.length > 0){
+        //Tell to the people that have the file opened that this user entered
         var teamgroup = nowjs.getGroup(userObj.TEAM_ID);
         teamgroup.now.c_processUserFileEvent(fname, "joinFile", userObj.clientId, usersInGroup[groupname]);
+
+        // Add this file to the user's chat
+        nowjs.getClient(userObj.clientId, function(){
+          if(this.now === undefined){
+            console.log("Undefined clientId for requestFullFileFromUserID >> " + id);
+          }else{
+            this.now.c_addFileToChatPane(fname);
+          }
+        });
       }
     }else{
       console.log("no need to add user " + userObj.clientId + " to group: " + groupname + " ???");

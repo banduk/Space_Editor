@@ -48,9 +48,10 @@
 }
 </style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="folder-structure"><ul><li><h6>/</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/app.js.html">app.js</a></li></ul></li><li><h6>controller</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/fileGroup.js.html">fileGroup.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/util.js.html">util.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/user.js.html">user.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/auth.js.html">auth.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/file.js.html">file.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/project.js.html">project.js</a></li></ul></li><li><h6>routes</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/rt.js.html">rt.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/index.js.html">index.js</a></li></ul></li><li><h6>model</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/model/user.js.html">user.js</a></li></ul></li></ul></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="#users">users</a></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">declaration</div><h1 id="users">users</h1><h5 class="subheader">users</h5><div class="description"></div><div class="tags"><ul class="no-bullet"></ul></div><pre><code class="language-javascript">var users = exports.users  = {};
 
-exports.create = function(usr, pwd){
+exports.create = function(usr, pwd, imgPath){
   users[usr] = {
-    username: usr
+    username: usr,
+    picture : imgPath
   };
 
   auth.hash(pwd, function(err, salt, hash){

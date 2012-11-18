@@ -1,0 +1,74 @@
+
+
+/**
+ * Documentation stuff (scoped chat ...)
+ * @return {}
+ */
+
+module.exports = function(){
+
+  // Lets start using the fileGroup
+  // List of the users for each function
+  //var usersInFuncGroup = this.usersInFuncGroup = {};
+  // this.addUserToFuncGroup = function(userObj, fname, funcName){
+  //   // Get the path of the file the user is editting (if theres no path, the user wants the log)
+  //   if(fname  && fname !== "" && funcname && funcName !== ""){
+  //     var groupname = userObj.TEAM_ID + "/" + fname + "::" + funcName;
+
+  //     // Get the group of users that are in the group of this function
+  //     var g = nowjs.getGroup(groupname);
+
+  //     // If the user is not in this group (is not in the scope of this function)
+  //     if(!g.users[userObj.clientId]){
+  //       // add to NOW group.
+  //       g.addUser(userObj.clientId);
+
+  //       // add to local group.
+  //       userObj.grouplist.push(groupname);
+
+  //       // keep track locally of users in group.
+  //       fg.usersInGroupPlusPlus(groupname);
+  //     }
+  //   }
+  // }
+
+  /**
+   * Check if the user cursor is in a given context (for now only 1st lvl simple functions)
+   * and in the case positive, tell the client to open a chat for that
+   * @param  {object} userObj an object representing the given user
+   * @param  {string} fname   the filename of the current file
+   * @param  {object} range   the possition (range) of the user's cursor
+   * @return {}
+   */
+  this.checkScopeNCreateChat = function(userObj, fname, range){
+    myFs.localFileFetch(userObj, fname, function(fname, data, err, isSaved){
+      try{
+        var parsed = uglJs.parse(data);
+        var walker = new uglJs.TreeWalker(function(node){
+          if (node instanceof uglJs.AST_Defun) {
+            // The cursor(range) is inside one, and only one function
+            if((range.start.row >= node.start.line && range.end.row <= node.end.line)){
+
+              nowjs.getClient(userObj.clientId, function(){
+                if(this.now === undefined){
+                  console.log("Undefined clientId for checkScopeNCreateChat" + userObj.clientId);
+                }else{
+                  // Lets start using the fileGroup =)
+                  // this.addUserToFuncGroup(userObj, fname, node.name.name)
+                  this.now.c_addFuncToChatPane(fname, node.name.name);
+                }
+              });
+            }
+            // If set to false, will check nested functions
+            // TODO: find a way to get only the most inner one
+            return true;
+          }
+        });
+        parsed.walk(walker);
+      } catch(JS_Parse_Error){
+        // TODO: find a way to parse the file even when not valid
+        console.log("The file is not valid, cannot parse...");
+      }
+    });
+  }
+}

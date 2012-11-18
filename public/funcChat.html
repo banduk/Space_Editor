@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>functions chat</title>
+    <link href="./stylesheet/index.css" rel="stylesheet" type="text/css" />
+    <link href="./stylesheet/chat.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+
+    <div id="top">
+      <div id="topStatus">
+        <div id="topFileName"></div>
+        <div id="topFuncName"></div>
+      </div>
+      <div id="globalChatHeader"> << Global chat >> </div>
+      <img id="gChat" src="./img/globe.png" />
+    </div>
+
+    <div id="globalChat"></div>
+    <div id="funcChat"></div>
+
+    <div id="bottom">
+      <form id="chat-form">
+        <div id="chatInputDiv">
+          <input id="chat-txtToSend" type="text" autocomplete="off" />
+        </div>
+        <input id="chatSendButton" type="submit" value="send" />
+      </form>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="./javascript/funcChat.js"></script>
+
+  </body>
+</html>

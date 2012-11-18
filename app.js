@@ -2,19 +2,22 @@ console.log(".---------------------------.");
 console.log("| * Starting Node service * |");
 console.log("'---------------------------'");
 
+
 //colors for console logging
-/*FGRED=`echo "\033[31m"`
-FGCYAN=`echo "\033[36m"`
-BGRED=`echo "\033[41m"`
-FGBLUE=`echo "\033[35m"`
-BGGREEN="\033[42m"*/
+/*
+  FGRED=`echo "\033[31m"`
+  FGCYAN=`echo "\033[36m"`
+  BGRED=`echo "\033[41m"`
+  FGBLUE=`echo "\033[35m"`
+  BGGREEN="\033[42m"
+*/
 blue  = '\033[36m';
 reset = '\033[0m';
 
 logBlue = function(str){console.log(blue + str + reset)};
 
 /**
- * Module dependencies.
+ * Moduledependencies.
  */
 var express = require("express")
   , util    = require("util")
@@ -96,13 +99,12 @@ io.configure(function () {
 /**
  * Global modules
  */
-crypto  = require('crypto')
+crypto  = require('crypto');
 walk    = require('walk');
 nowjs   = require('now');
 fs      = require('fs');
 moment  = require('moment');
-
-
+uglJs   = require("uglify-js2");
 
 var Util       = require('./controller/util')
   , FileGroup  = require('./controller/fileGroup')
@@ -110,6 +112,7 @@ var Util       = require('./controller/util')
   , User       = require('./controller/user')
   , Auth       = require('./controller/auth')
   , Project    = require('./controller/project')
+  , Docs       = require('./controller/docs')
   ;
 
 /**
@@ -121,14 +124,10 @@ var Util       = require('./controller/util')
 , user   = new User()
 , auth   = new Auth()
 , project= new Project()
+, docs   = new Docs()
 ;
 
 var routes = require('./routes');
 
 // Added for keeping this file "as untouchable as possible"
 routes.route();
-
-
-
-
-

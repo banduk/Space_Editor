@@ -154,8 +154,11 @@ function populateEditPane(editPane, fname){
     $(editPane).html("<iframe class='editorFrame' ></iframe><div  onmousedown='selectPaneScreen(this);' class='paneScreen'></div>");
   }
 }
-function populateChatPane(pane){
-  pane.html("<iframe src='/chat.html'></iframe>");
+function populateFileChatPane(pane){
+  pane.html("<iframe src='/fileChat.html'></iframe>");
+}
+function populateFuncChatPane(pane){
+  pane.html("<iframe src='/funcChat.html'></iframe>");
 }
 
 function setUsersInFile(fname, usersInFile){
@@ -837,7 +840,8 @@ $(window).ready(function() {
   populateEditPane($("#pane_0"), "");
   populateEditPane($("#pane_1"), "");
   populateEditPane($("#pane_2"), "");
-  populateChatPane($("#pane_chat"));
+  populateFileChatPane($("#pane_fileChat"));
+  populateFuncChatPane($("#pane_funcChat"));
 
 
   $(".join").each(function(index, el){

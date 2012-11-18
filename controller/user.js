@@ -14,9 +14,45 @@ module.exports = function(){
   this.signup = function(req, res){
     res.render('signup');
   };
+
+  //TODO: Test user name and password
   this.doSignup = function(req, res){
-    usr = users.create(req.body.username, req.body.password);
-    doAuthenticate(req, res, usr);
+    // get the temporary location of the file
+    var tmp_path = req.files.thumbnail.path;
+
+    // Testing file name
+    // TODO: test file extensions
+    var i = req.files.thumbnail.name.lastIndexOf('.');
+    if(i < 0){
+      console.error("Cannot find file extension for user image upload.")
+      req.session.error = 'Signup failed: error while uploading your picture. Try another one.';
+      res.redirect('signup');
+    }
+    else{
+      // set where the file should actually exists - in this case it is in the "images" directory
+      var target_path = './public/img/profile/' + req.body.username + req.files.thumbnail.name.substr(i);
+      // var target_path = '/tmp/' + req.body.username + req.files.thumbnail.name.substr(i);
+      console.log("new name: " + target_path);
+
+      // move the file from the temporary location to the intended location
+      fs.rename(tmp_path, target_path, function(err) {
+        if (err){
+          console.error('Error while renaming file:\n'+err);
+          req.session.error = 'Signup failed, error while uploading your picture. Try another one.';
+          res.redirect('signup');
+          throw err;
+        }
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+          if (err) console.error('Error while unlinking temp pictire:\n' + err);
+          else{
+            var external_path = '/img/profile/' + req.body.username + req.files.thumbnail.name.substr(i);
+            usr = users.create(req.body.username, req.body.password, external_path);
+            doAuthenticate(req, res, usr);
+          }
+        });
+      });
+    }
   };
 
   /*LOGIN*/

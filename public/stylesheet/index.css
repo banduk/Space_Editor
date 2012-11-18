@@ -824,14 +824,14 @@ background-color: transparent;
 /*
  * Chat
  */
-.chatPane, .gChatPane {
+.funcChatPane, .gChatPane, .fileChatPane {
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
 }
-.chatPane iframe, .gChatPane iframe{
+.funcChatPane iframe, .gChatPane iframe, .fileChatPane iframe{
   position: absolute;
   left: 0;
   top: 0;

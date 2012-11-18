@@ -42,7 +42,7 @@ module.exports = function(){
         // Add this file to the user's chat
         nowjs.getClient(userObj.clientId, function(){
           if(this.now === undefined){
-            console.log("Undefined clientId for requestFullFileFromUserID >> " + id);
+            console.log("Undefined clientId for adding chat pane >> " + id);
           }else{
             this.now.c_addFileToChatPane(fname);
           }
@@ -87,7 +87,19 @@ module.exports = function(){
       if(fname.length > 0){
         var teamgroup = nowjs.getGroup(userObj.TEAM_ID);
         teamgroup.now.c_processUserFileEvent(fname, "leaveFile", userObj.clientId, usersInGroup[groupname]);
+
+        // Remove this file from the user's chat
+        nowjs.getClient(userObj.clientId, function(){
+          if(this.now === undefined){
+            console.log("Undefined clientId for removing chat pane >> " + id);
+          }else{
+            this.now.c_removeFileFromChatPane(fname);
+          }
+        });
       }
+
+
+
       //console.log("Removed user " + userObj.clientId + " from: " + groupname);
     }else{
       console.log("no need to remove user " + userObj.clientId + " from group: " + groupname + " ???");

@@ -27,9 +27,11 @@ this.config = function() {
       this.user.about       = {};
       this.user.about._id   = u.username;
       this.user.about.name  = u.username;
+      this.user.about.picture  = u.picture;
 
       // -----
       this.now.username = this.user.about.name;
+      this.now.picture = this.user.about.picture;
       // -----
 
       // file groups starts out empty.
@@ -67,9 +69,19 @@ this.config = function() {
 }
 
 this.route = function() {
+  /**
+   * Send user's cursor to all users in file
+   * @param  {string} fname          the name of the file
+   * @param  {object} range          the cursor position range
+   * @param  {boolean} changedByUser if the file was changed by this user
+   * @return {}
+   */
   everyone.now.s_sendCursorUpdate = function(fname, range, changedByUser){
     var userObj = this.user;
     var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
+
+
+    docs.checkScopeNCreateChat(userObj, fname, range);
 
     var _usersIngroup = "";
     var users = filegroup.users;
@@ -88,14 +100,11 @@ this.route = function() {
 
 
   // NOW: Remote file tools.
-
-
   everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
     var callerID = this.user.clientId;
     var userObj = this.user;
 
     fg.addUserToFileGroup(userObj, fname);
-
 
     //removeUserFromAllFileGroupsAndAddToThis(origUser, fname);
     if(myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === true || myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === undefined){
@@ -158,7 +167,8 @@ this.route = function() {
     var fromUserId   = this.user.clientId;
     var fromUserName = this.now.username;
     var date = moment().format('HH:mm');
-    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName, date);
+    var pic = this.now.picture;
+    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName, date, pic);
   };
 
   everyone.now.s_teamMessageBroadcast      = function(type, message){
@@ -167,9 +177,22 @@ this.route = function() {
     var fromUserId = this.user.clientId;
     var fromUserName = this.now.username;
     var date = moment().format('HH:mm');
-    // teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
-    teamgroup.now.c_receiveGlobalChatChat(message, fromUserId, fromUserName, date);
+    var pic = this.now.picture;
+    teamgroup.now.c_receiveGlobalChatChat(message, fromUserId, fromUserName, date, pic);
   };
+
+  everyone.now.s_sendFuncChatMessage = function(fname, funcName, message){
+    //Lets start using the fileGroup
+    // var filegroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname + "::" + funcName);
+    var funcgroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname);
+    var fromUserId   = this.user.clientId;
+    var fromUserName = this.now.username;
+    var date = moment().format('HH:mm');
+    var pic = this.now.picture;
+    funcgroup.now.c_receiveFuncChat(fname, message, fromUserId, fromUserName, date, pic);
+  };
+
+
   everyone.now.s_leaveFile                 = function(fname){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
     var fromUserId = this.user.clientId;
@@ -295,7 +318,18 @@ this.route = function() {
 
 
 
-
+    // var output = '{';
+    // var object = range;
+    // for (property in object) {
+    //   var output2 = '';
+    //   var object2 = object[property];
+    //   for (property2 in object2) {
+    //     output2 += '\n    ' + property2 + ': ' + object2[property2]+'; ';
+    //   }
+    //   output += '\n  ' + property + ': {' + output2 +'\n  },';
+    // }
+    // output += '\n}';
+    // console.log("RANGE["+this.now.username+"]:\n" + output);
 
 
 

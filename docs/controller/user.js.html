@@ -49,9 +49,45 @@
 </style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="folder-structure"><ul><li><h6>/</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/app.js.html">app.js</a></li></ul></li><li><h6>controller</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/fileGroup.js.html">fileGroup.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/util.js.html">util.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/user.js.html">user.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/auth.js.html">auth.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/file.js.html">file.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/project.js.html">project.js</a></li></ul></li><li><h6>routes</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/rt.js.html">rt.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/index.js.html">index.js</a></li></ul></li><li><h6>model</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/model/user.js.html">user.js</a></li></ul></li></ul></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="#signup">signup</a></li><li><a href="#login">login</a></li><li><a href="#logout">logout</a></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="signup">signup</h1><h5 class="subheader">this.signup()</h5><div class="description"><p>IGNUP</p></div><div class="tags"><ul class="no-bullet"></ul></div><pre><code class="language-javascript">this.signup = function(req, res){
     res.render('signup');
   };
+
+  //TODO: Test user name and password
   this.doSignup = function(req, res){
-    usr = users.create(req.body.username, req.body.password);
-    doAuthenticate(req, res, usr);
+    // get the temporary location of the file
+    var tmp_path = req.files.thumbnail.path;
+
+    // Testing file name
+    // TODO: test file extensions
+    var i = req.files.thumbnail.name.lastIndexOf('.');
+    if(i < 0){
+      console.error("Cannot find file extension for user image upload.")
+      req.session.error = 'Signup failed: error while uploading your picture. Try another one.';
+      res.redirect('signup');
+    }
+    else{
+      // set where the file should actually exists - in this case it is in the "images" directory
+      var target_path = './public/img/profile/' + req.body.username + req.files.thumbnail.name.substr(i);
+      // var target_path = '/tmp/' + req.body.username + req.files.thumbnail.name.substr(i);
+      console.log("new name: " + target_path);
+
+      // move the file from the temporary location to the intended location
+      fs.rename(tmp_path, target_path, function(err) {
+        if (err){
+          console.error('Error while renaming file:\n'+err);
+          req.session.error = 'Signup failed, error while uploading your picture. Try another one.';
+          res.redirect('signup');
+          throw err;
+        }
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+          if (err) console.error('Error while unlinking temp pictire:\n' + err);
+          else{
+            var external_path = '/img/profile/' + req.body.username + req.files.thumbnail.name.substr(i);
+            usr = users.create(req.body.username, req.body.password, external_path);
+            doAuthenticate(req, res, usr);
+          }
+        });
+      });
+    }
   };</code></pre></div><div class="comment"><div class="label radius ctx-type">method</div><h1 id="login">login</h1><h5 class="subheader">this.login()</h5><div class="description"><p>OGIN</p></div><div class="tags"><ul class="no-bullet"></ul></div><pre><code class="language-javascript">this.login = function(req, res){
     res.render('login');
   };

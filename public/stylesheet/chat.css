@@ -15,18 +15,6 @@ body {
   opacity: .99;
 }
 
-/*OLD SCROLLBAR*/
-/*::-webkit-scrollbar-thumb {
-  border: 2px solid #111;
-  background: #282a2e;
-  border-radius: 0px;
-}
-::-webkit-scrollbar {
-  height: 12px;
-  width: 12px;
-  background: #111;
-}*/
-
 ::-webkit-scrollbar {
   height: 6px;
   width: 6px;
@@ -64,12 +52,8 @@ background-color: transparent;
   border-bottom: 1px solid #000;
 }
 
-#topStatus {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-}
-#topProjName, #topFileName {
+
+#topProjName, #topFileName, #topFuncName {
   display: inline-block;
   z-index: 1;
   font-size: 12px;
@@ -90,7 +74,10 @@ background-color: transparent;
   font-family: monospace;
 }
 
-
+.chat-img{
+  max-width: 30px;
+  max-height: 30px;
+}
 
 #gChat{
   right: 2px;
@@ -128,7 +115,7 @@ background-color: transparent;
   background-color: #000;
 }
 
-#fileChats, #globalChat{
+#fileChats, #globalChat, #funcChat{
   color: #999;
   margin: 0px;
   position: absolute;
@@ -162,8 +149,10 @@ background-color: transparent;
 }
 .chat-txt{
   float: left;
-  display: block;
-  margin-left: 10px;
+display: block;
+position: absolute;
+margin-left: 35px;
+background-color: #111;
 }
 
 #bottom {

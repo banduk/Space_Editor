@@ -46,12 +46,181 @@
   cursor: pointer;
   margin: 10px 0 0 0;
 }
-</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="folder-structure"><ul><li><h6>/</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/app.js.html">app.js</a></li></ul></li><li><h6>controller</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/fileGroup.js.html">fileGroup.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/util.js.html">util.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/user.js.html">user.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/auth.js.html">auth.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/file.js.html">file.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/project.js.html">project.js</a></li></ul></li><li><h6>routes</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/rt.js.html">rt.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/index.js.html">index.js</a></li></ul></li><li><h6>model</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/model/user.js.html">user.js</a></li></ul></li></ul></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="#s_teamMessageBroadcast">s_teamMessageBroadcast</a></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">method</div><h1 id="s_teamMessageBroadcast">s_teamMessageBroadcast</h1><h5 class="subheader">everyone.now.s_teamMessageBroadcast()</h5><div class="description"><p>veryone.now.s_sendFileChat = function(fname, message){<br />    var filegroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname);<br />    var fromUserId   = this.user.clientId;<br />    var fromUserName = this.now.username;<br />    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName);<br />  };</p></div><div class="tags"><ul class="no-bullet"></ul></div><pre><code class="language-javascript">everyone.now.s_teamMessageBroadcast      = function(type, message){
+</style></head><body><div class="row"><div class="twelve columns"><h1 class="pagetitle">Documentation</h1></div></div><div class="row"><div id="folder-structure"><ul><li><h6>/</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/app.js.html">app.js</a></li></ul></li><li><h6>controller</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/fileGroup.js.html">fileGroup.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/util.js.html">util.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/user.js.html">user.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/auth.js.html">auth.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/file.js.html">file.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/controller/project.js.html">project.js</a></li></ul></li><li><h6>routes</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/rt.js.html">rt.js</a></li><li><a href="/home/banduk/workspace/My_Space_Editor/docs/routes/index.js.html">index.js</a></li></ul></li><li><h6>model</h6><ul><li><a href="/home/banduk/workspace/My_Space_Editor/docs/model/user.js.html">user.js</a></li></ul></li></ul></div></div><div class="row"><div id="nav" class="three columns"><ul class="side-nav"><li><a href="#everyone">everyone</a></li></ul></div><div class="nine columns"><div class="comment"><div class="label radius ctx-type">declaration</div><h1 id="everyone">everyone</h1><h5 class="subheader">everyone</h5><div class="description"></div><div class="tags"><ul class="no-bullet"></ul></div><pre><code class="language-javascript">var everyone = nowjs.initialize(
+    server,
+    {socketio: {
+        "transports": [
+          "htmlfile",
+          "xhr-polling",
+          "jsonp-polling",
+          "flashsocket"
+        ]
+    }}
+  );
+
+this.config = function() {
+  nowjs.on('connect', function () {
+
+    if(this.now.TEAM_ID != '' && this.now.TEAM_ID != null){
+      this.user.TEAM_ID = this.now.TEAM_ID;
+    } else {
+      this.user.TEAM_ID   = TEAM_ID;
+      this.now.TEAM_ID    = TEAM_ID;
+    }
+
+    var u = user.getByUsername(this.user.cookie['_username']);
+    if(u){
+
+      // now populate it..
+      this.user.about       = {};
+      this.user.about._id   = u.username;
+      this.user.about.name  = u.username;
+      this.user.about.picture  = u.picture;
+
+      // -----
+      this.now.username = this.user.about.name;
+      this.now.picture = this.user.about.picture;
+      // -----
+
+      // file groups starts out empty.
+      this.user.grouplist = [];
+
+      // the blank file group is the the team group.
+      fg.addUserToFileGroup(this.user, "");
+
+
+      // var output = '';
+      // var object = this.now;
+      // for (property in object) {
+      //   output += property + ': ' + object[property]+'; ';
+      // }
+      // console.warn(output);
+
+      // Confirm the project to the user
+      this.now.c_confirmProject(this.user.TEAM_ID);
+    }
+  });
+
+  nowjs.on('disconnect', function () {
+    var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
+
+    // remove user from all file groups.
+    if(this.user.grouplist !== undefined){
+      for(var i=this.user.grouplist.length-1; i>=0; i--){
+        var g = this.user.grouplist[i];
+        var fname = g.substring(g.indexOf("/")+1);
+        fg.usersInGroupMinusMinus(g);
+        teamgroup.now.c_processUserFileEvent(fname, "leaveFile", this.user.clientId, myFs.usersInGroup[g]);
+      }
+    }
+  });
+}
+
+this.route = function() {
+  everyone.now.s_sendCursorUpdate = function(fname, range, changedByUser){
+    var userObj = this.user;
+    var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
+
+    var _usersIngroup = "";
+    var users = filegroup.users;
+    for (userInUsers in users) {
+      _usersIngroup += '        [ ' + userInUsers+ ': ' + users[userInUsers].user.about.name +' ]\n';
+    }
+
+    filegroup.now.c_updateCollabCursor(this.user.clientId, this.now.username, range, changedByUser);
+  };
+  everyone.now.s_sendDiffPatchesToCollaborators = function(fname, patches, crc32){
+    var userObj = this.user;
+    myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] = false; // mark file as changed.
+    var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
+    filegroup.now.c_updateWithDiffPatches(this.user.clientId, patches, crc32);
+  };
+
+
+  // NOW: Remote file tools.
+
+
+  everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){
+    var callerID = this.user.clientId;
+    var userObj = this.user;
+
+    fg.addUserToFileGroup(userObj, fname);
+
+
+    //removeUserFromAllFileGroupsAndAddToThis(origUser, fname);
+    if(myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === true || myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] === undefined){
+      myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+      //console.log("FILE FETCH: " + userObj.TEAM_ID + " >> " + fname + ", by user: " + (userObj.about.name || callerID));
+    }else{
+      console.log("FILE FETCH (passed to user): " + userObj.TEAM_ID + " >> " + fname + ", by user: " + callerID);
+      var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
+      var users = filegroup.getUsers(function (users) {
+        var foundUser = false;
+        for (var i = 0; i < users.length; i++){
+          if(users[i] != callerID){
+            // this looks like a valid user to get the file from. :)
+            console.log("Trying to get file from: " + users[i]);
+            nowjs.getClient(users[i], function(){
+              if(this.now === undefined){
+                console.log("Undefined clientId for requestFullFileFromUserID (using local) >> " + users[i]);
+                myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+              }else{
+                this.now.c_userRequestedFullFile(fname, callerID, fileRequesterCallback);
+              }
+            });
+            foundUser = true;
+            break;
+          }
+        }
+        if(!foundUser){
+          console.log("Flagged as changed, but no user with file: "+userObj.TEAM_ID+" >> "+fname+" >> FETCHING last saved.");
+          myFs.localFileFetch(userObj, fname, fileRequesterCallback);
+        }
+      });
+    }
+  };
+  everyone.now.s_saveUserFileContentsToServer = function(fname, fcontents, fileSaverCallback){
+    myFs.localFileSave(this.user, fname, fcontents, fileSaverCallback);
+  };
+  //-------
+  // get rid of this is possible...
+  everyone.now.s_requestFullFileFromUserID = function(fname, id, fileRequesterCallback){
+    var callerID = this.user.clientId;
+    var userObj = this.user;
+    var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
+    filegroup.hasClient(id, function (bool) {
+      if (bool) {
+        //console.log("requesting full file. valid filegroup. :)");
+        nowjs.getClient(id, function(){
+          if(this.now === undefined){
+            console.log("Undefined clientId for requestFullFileFromUserID >> " + id);
+          }else{
+            this.now.c_userRequestedFullFile(fname, callerID, fileRequesterCallback);
+          }
+        });
+      }
+    });
+  };
+  //-------
+
+  everyone.now.s_sendFileChatMessage = function(fname, message){
+    var filegroup    = nowjs.getGroup(this.user.TEAM_ID+"/"+fname);
+    var fromUserId   = this.user.clientId;
+    var fromUserName = this.now.username;
+    var date = moment().format('HH:mm');
+    var pic = this.now.picture;
+    filegroup.now.c_receiveFileChat(fname, message, fromUserId, fromUserName, date, pic);
+  };
+
+  everyone.now.s_teamMessageBroadcast      = function(type, message){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);
     var scope      = "team";
     var fromUserId = this.user.clientId;
     var fromUserName = this.now.username;
-    teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
+    var date = moment().format('HH:mm');
+    var pic = this.now.picture;
+    // teamgroup.now.c_processMessage(scope, type, message, fromUserId, fromUserName);
+    teamgroup.now.c_receiveGlobalChatChat(message, fromUserId, fromUserName, date, pic);
   };
   everyone.now.s_leaveFile                 = function(fname){
     var teamgroup  = nowjs.getGroup(this.user.TEAM_ID);

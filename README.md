@@ -1,4 +1,6 @@
-#This is a try to organize the amazing [Space_Editor](https://github.com/chaoscollective/Space_Editor) project
+# Introduction:
+
+This is a try to organize the amazing [Space_Editor](https://github.com/chaoscollective/Space_Editor) project
 
 The organisation of the project is totally based on the [SQLite example](https://github.com/camposer/express-examples/tree/master/sqlite) by [Rodolfo Campos](https://github.com/camposer)
 

@@ -1,8 +1,9 @@
 var users = exports.users  = {};
 
-exports.create = function(usr, pwd){
+exports.create = function(usr, pwd, imgPath){
   users[usr] = {
-    username: usr
+    username: usr,
+    picture : imgPath
   };
 
   auth.hash(pwd, function(err, salt, hash){
