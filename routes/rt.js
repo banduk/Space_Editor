@@ -80,8 +80,7 @@ this.route = function() {
     var userObj = this.user;
     var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
 
-
-    docs.checkScopeNCreateChat(userObj, fname, range);
+    // docs.checkScopeNCreateChat(userObj, fname, range);
 
     var _usersIngroup = "";
     var users = filegroup.users;
@@ -91,6 +90,7 @@ this.route = function() {
 
     filegroup.now.c_updateCollabCursor(this.user.clientId, this.now.username, range, changedByUser);
   };
+
   everyone.now.s_sendDiffPatchesToCollaborators = function(fname, patches, crc32){
     var userObj = this.user;
     myFs.localFileIsMostRecent[userObj.TEAM_ID+"/"+fname] = false; // mark file as changed.
@@ -98,6 +98,10 @@ this.route = function() {
     filegroup.now.c_updateWithDiffPatches(this.user.clientId, patches, crc32);
   };
 
+
+  everyone.now.showFnChat = function(fname, line){
+    docs.showFnChat(this.user, fname, line)
+  }
 
   // NOW: Remote file tools.
   everyone.now.s_getLatestFileContentsAndJoinFileGroup = function(fname, fileRequesterCallback){

@@ -40,15 +40,57 @@ module.exports = function(){
    * @param  {object} range   the possition (range) of the user's cursor
    * @return {}
    */
-  this.checkScopeNCreateChat = function(userObj, fname, range){
+  // this.checkScopeNCreateChat = function(userObj, fname, range){
+  //   myFs.localFileFetch(userObj, fname, function(fname, data, err, isSaved){
+  //     try{
+  //       var parsed = uglJs.parse(data);
+  //       var walker = new uglJs.TreeWalker(function(node){
+  //         if (node instanceof uglJs.AST_Defun) {
+  //           // The cursor(range.start.row) is in a function signature
+  //           // Notice that range.start.row starts at 0 and node.start.line at 1
+  //           if((range.start.row+1 == node.start.line)){
+
+  //             nowjs.getClient(userObj.clientId, function(){
+  //               if(this.now === undefined){
+  //                 console.log("Undefined clientId for checkScopeNCreateChat" + userObj.clientId);
+  //               }else{
+  //                 // Lets start using the fileGroup =)
+  //                 // this.addUserToFuncGroup(userObj, fname, node.name.name)
+  //                 this.now.c_addFuncToChatPane(fname, node.name.name);
+  //                 // Stop searching if found
+  //                 return true;
+  //               }
+  //             });
+  //           }
+  //           // If set to false, will check nested functions
+  //           // TODO: find a way to get only the most inner one
+  //           return false;
+  //         }
+  //       });
+  //       parsed.walk(walker);
+  //     } catch(JS_Parse_Error){
+  //       // TODO: find a way to parse the file even when not valid
+  //       console.log("The file is not valid, cannot parse...");
+  //     }
+  //   });
+  // }
+
+  /**
+   * Show the chat for the function in a given line for a give client
+   * @param  {object} userObj an object representing the given user
+   * @param  {string} fname   the filename of the current file
+   * @param  {object} line    the line of the user's cursor
+   * @return {}
+   */
+  this.showFnChat = function(userObj, fname, line){
     myFs.localFileFetch(userObj, fname, function(fname, data, err, isSaved){
       try{
         var parsed = uglJs.parse(data);
         var walker = new uglJs.TreeWalker(function(node){
           if (node instanceof uglJs.AST_Defun) {
-            // The cursor(range) is inside one, and only one function
-            if((range.start.row >= node.start.line && range.end.row <= node.end.line)){
-
+            // The cursor(range.start.row) is in a function signature
+            // Notice that line starts at 0 and node.start.line at 1
+            if((line == node.start.line)){
               nowjs.getClient(userObj.clientId, function(){
                 if(this.now === undefined){
                   console.log("Undefined clientId for checkScopeNCreateChat" + userObj.clientId);
@@ -56,12 +98,14 @@ module.exports = function(){
                   // Lets start using the fileGroup =)
                   // this.addUserToFuncGroup(userObj, fname, node.name.name)
                   this.now.c_addFuncToChatPane(fname, node.name.name);
+                  // Stop searching if found
+                  return true;
                 }
               });
             }
             // If set to false, will check nested functions
             // TODO: find a way to get only the most inner one
-            return true;
+            return false;
           }
         });
         parsed.walk(walker);

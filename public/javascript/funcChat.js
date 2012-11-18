@@ -30,11 +30,13 @@ $(document).ready(function() {
 });
 
 now.c_addFuncToChatPane = function(fname, funcName){
-  if($("#funcChat").attr("fname") != fname && $("#funcChat").attr("funcname") != funcName)
-  $("#funcChat").empty();
-  $("#funcChat").attr("fname", fname).attr("funcname", funcName);
-  $("#topFileName").text(fname + " :: ");
-  $("#topFuncName").text(funcName);
+  if($("#funcChat").attr("fname") !== fname || $("#funcChat").attr("funcname") !== funcName){
+    $("#funcChat").empty();
+    $("#funcChat").attr("fname", fname)
+    $("#funcChat").attr("funcname", funcName);
+    $("#topFileName").text(fname + " :: ");
+    $("#topFuncName").text(funcName);
+  }
 }
 
 now.c_receiveFuncChat = function(fname, message, fromUserId, fromUserName, time, fromUserImg){

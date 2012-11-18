@@ -1115,7 +1115,10 @@ $(document).ready(function() {
     cursorChangeTimeout = setTimeout(ifOnlineLetCollaboratorsKnowImHere, 350);
   });
 
-  editor.getSession().setFoldStyle("markbeginend");
+  // Adding folding widgets only for the beginning of the block
+  editor.getSession().setFoldStyle("markbegin");
+  // editor.getSession().addGutterDecoration(Number row, String className)
+  // editor.getSession().showDocWidgets(true);
 
   console.log("starting...");
 
@@ -1184,6 +1187,12 @@ $(document).ready(function() {
     console.log(now);
   });
 
+
+  $(".space_doc-widget").live('click', function(){
+    // TODO: Would be better to add the line number inside a span with a class
+    var line = $(this).parent().find('.gutter_line-number:first').text();
+    now.showFnChat(infile, line);
+  });
 
 });
 

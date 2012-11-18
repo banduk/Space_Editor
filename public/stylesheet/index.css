@@ -996,3 +996,18 @@ background-color: transparent;
 .rightClickItemEl:hover {
   text-decoration: underline;
 }
+
+
+.space_doc-widget{
+  position: absolute;
+  margin: 0 0px 1px -32px;
+  height: 11px;
+  width: 19px;
+  background-color: #449;
+  cursor: pointer;
+  font-size: 11px;
+  border-radius: 3px;
+  color: black;
+  font-weight: bold;
+  line-height: 12px;
+}
