@@ -848,7 +848,7 @@ $(window).ready(function() {
     setupJoin(el);
   });
 
-  loadAllProjectFiles(true);
+  loadAllProjectFiles();
 
   var lastShiftTime = 0;
 

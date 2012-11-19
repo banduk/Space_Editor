@@ -63,9 +63,8 @@ app.configure(function(){
     var err = req.session.error
       , msg = req.session.success;
 
-
     if(req.session && req.session.user){
-      res.cookie('_username', req.session.user.username);
+      res.cookie('_username', req.session.user.email);
     }
 
     delete req.session.error;
@@ -105,6 +104,7 @@ nowjs   = require('now');
 fs      = require('fs');
 moment  = require('moment');
 uglJs   = require("uglify-js2");
+Nohm    = require('nohm').Nohm;
 
 var Util       = require('./controller/util')
   , FileGroup  = require('./controller/fileGroup')

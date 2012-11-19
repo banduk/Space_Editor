@@ -26,7 +26,7 @@ module.exports = function(){
    */
   this.createFile = function(req, res){
 
-    console.log(blue + "CREATE FILE ["+req.session.user.username+"]");
+    console.log(blue + "CREATE FILE ["+req.session.user.email+"]");
 
     // If the user is in a project and set a name for the file
     if(req.query.project && req.query.project.length > 2 && req.body.fname){
@@ -81,7 +81,7 @@ module.exports = function(){
    */
   this.renameFile = function(req, res){
 
-    console.log("RENAME FILE ["+req.session.user.username+"]");
+    console.log("RENAME FILE ["+req.session.user.email+"]");
 
     // If the user is in a project and set a new filename for the file
     if(req.query.project && req.query.project.length > 2 && req.body.fname && req.body.newfname){
@@ -134,7 +134,7 @@ module.exports = function(){
               res.send("FAIL: Error renaming file.");
             }
             // Successfully renamed the file
-            console.log("successfully renamed file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
+            console.log("successfully renamed file ["+req.session.user.email+"]: " + pathA + " >> " + pathB);
             res.send(safeNewFName);
           });
         }
@@ -157,7 +157,7 @@ module.exports = function(){
    * @return {}
    */
   this.deleteFile = function(req, res){
-    console.log("DELETE FILE ["+req.session.user.username+"]");
+    console.log("DELETE FILE ["+req.session.user.email+"]");
 
     // If the user is in a project and there's the filename for the file to be deleted
     if(req.query.project && req.query.project.length > 2 && req.body.fname){
@@ -215,7 +215,7 @@ module.exports = function(){
    * @return {}
    */
   this.duplicateFile = function(req, res){
-    console.log("DUPLICATE FILE ["+req.session.user.username+"]");
+    console.log("DUPLICATE FILE ["+req.session.user.email+"]");
 
     // If the user is in a project and set a new filename for the file
     if(req.query.project && req.query.project.length > 2 && req.body.fname && req.body.newfname){
@@ -271,7 +271,7 @@ module.exports = function(){
               return res.send("FAIL: Error duplicating file.");
             }
             // Successfully duplicated file
-            console.log("successfully duplicated file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
+            console.log("successfully duplicated file ["+req.session.user.email+"]: " + pathA + " >> " + pathB);
             return res.send(safeNewFName);
           });
         }
@@ -509,7 +509,7 @@ module.exports = function(){
             throw err;
           }
           // Successfully renamed the file
-          console.log("successfully renamed file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
+          console.log("successfully renamed file ["+req.session.user.email+"]: " + pathA + " >> " + pathB);
 
           // Tell to the team that the file was renamed
           var teamgroup  = nowjs.getGroup(userObj.TEAM_ID);
@@ -579,7 +579,7 @@ module.exports = function(){
             throw err;
           }
           // Successfully duplicated file
-          console.log("successfully duplicated file ["+req.session.user.username+"]: " + pathA + " >> " + pathB);
+          console.log("successfully duplicated file ["+req.session.user.email+"]: " + pathA + " >> " + pathB);
 
           // Tell to the team that the file was duplicated
           var teamgroup  = nowjs.getGroup(userObj.TEAM_ID);

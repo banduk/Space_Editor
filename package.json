@@ -13,15 +13,17 @@
     "doc"  : "dox-foundation --source . --target docs --ignore public,view,node_modules,workspace/team"
   },
   "dependencies": {
-    "express" : "3.x",
-    "gzippo" : "0.1.x",
-    "now" : "0.8.x",
-    "socket.io" : "0.9.x",
-    "stylus" : "0.24.x",
-    "underscore" : "1.3.x",
-    "walk" : "2.2.x",
-    "ejs": "*",
-    "moment": "1.7.x",
-    "uglify-js2" : "2.1.11"
+    "express"     : "3.x",
+    "gzippo"      : "0.1.x",
+    "now"         : "0.8.x",
+    "socket.io"   : "0.9.x",
+    "stylus"      : "0.24.x",
+    "underscore"  : "1.3.x",
+    "walk"        : "2.2.x",
+    "ejs"         : "*",
+    "moment"      : "1.7.x",
+    "uglify-js2"  : "2.1.11",
+    "redis"       : "*",
+    "nohm"        : "*"
   }
 }

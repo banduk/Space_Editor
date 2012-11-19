@@ -20,7 +20,7 @@ exports.route = function() {
   app.post('/signup', unrestrict, user.doSignup);
   app.get ('/login',  unrestrict, user.login);
   app.post('/login',  unrestrict, user.doLogin);
-  app.get ('/logout', restrict,   user.Logout);
+  app.get ('/logout', restrict,   user.logout);
 
   //DOCS
   //app.get ('/doc', function(req, res){req.url = 'docs/index.html'});

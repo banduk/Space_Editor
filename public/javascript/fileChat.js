@@ -41,6 +41,7 @@ now.c_removeFileFromChatPane = function(fname){
   $(".fileChat[file='"+fname+"']").remove();
 };
 
+// TODO: AutoScroll
 now.c_receiveFileChat = function(fname, message, fromUserId, fromUserName, time, fromUserImg){
   var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 

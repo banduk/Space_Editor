@@ -39,22 +39,23 @@ now.c_addFuncToChatPane = function(fname, funcName){
   }
 }
 
-now.c_receiveFuncChat = function(fname, message, fromUserId, fromUserName, time, fromUserImg){
+// TODO: AutoScroll
+now.c_receiveFuncChat = function(fname, funcName, message, fromUserId, fromUserName, time, fromUserImg){
   var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-  $("#funcChat").append(
-      "<div class='chat-msg'>"
-    +   "<div class='chat-info'>"
-    +   "<img class='chat-img' title="+fromUserName+" alt="+fromUserName+" src=" + fromUserImg + "></img>"
-    // +     "<span class'chat-time'>"+time+"</span>"
-    +   "</div>"
-    +   "<div class='chat-txt'>"+message+"</div>"
-    +   "<div style='clear:both'></div>"
-    + "</div>"
-  );
+  if($("#funcChat").attr("fname") == fname && $("#funcChat").attr("funcname") == funcName)
+    $("#funcChat").append(
+        "<div class='chat-msg'>"
+      +   "<div class='chat-info'>"
+      +   "<img class='chat-img' title="+fromUserName+" alt="+fromUserName+" src=" + fromUserImg + "></img>"
+      // +     "<span class'chat-time'>"+time+"</span>"
+      +   "</div>"
+      +   "<div class='chat-txt'>"+message+"</div>"
+      +   "<div style='clear:both'></div>"
+      + "</div>"
+    );
 };
 
-
+// TODO: AutoScroll
 now.c_receiveGlobalChatChat = function(message, fromUserId, fromUserName, time, fromUserImg){
   // var userColor = userColorMap[fromUserId%userColorMap.length];
   var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");

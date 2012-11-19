@@ -21,7 +21,7 @@ module.exports = function(){
       var projectRoot = EDITABLE_APPS_DIR+project;
 
       console.log("Listing all project files [" + projectRoot + "] for user: " +
-        req.session.user.username + " --> (~"+fg.usersInGroup[project]+" sockets)");
+        req.session.user.email + " --> (~"+fg.usersInGroup[project]+ " sockets)");
 
 
       // Try to walk inside the project looking for files
@@ -124,7 +124,7 @@ module.exports = function(){
       // Get the name of the project
       var project = req.query.project.replace(/\.\./g, "");
 
-      console.log("LAUNCHING Project [" + req.session.user.username + "] >> " + projectName);
+      console.log("LAUNCHING Project [" + req.session.user.email + "] >> " + projectName);
 
       // Get the folder of the project
       var projectRoot = EDITABLE_APPS_DIR+project;

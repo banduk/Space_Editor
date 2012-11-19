@@ -20,37 +20,34 @@ this.config = function() {
       this.now.TEAM_ID    = TEAM_ID;
     }
 
-    var u = user.getByUsername(this.user.cookie['_username']);
-    if(u){
+    var now = this.now;
+    var usr = this.user;
 
-      // now populate it..
-      this.user.about       = {};
-      this.user.about._id   = u.username;
-      this.user.about.name  = u.username;
-      this.user.about.picture  = u.picture;
+    user.getByEmail( this.user.cookie['_username'], function(u){
+      if(u){
+        // now populate it..
+        usr.about       = {};
+        usr.about._id   = u.email;
+        usr.about.name  = u.name;
+        usr.about.picture  = u.picture;
 
-      // -----
-      this.now.username = this.user.about.name;
-      this.now.picture = this.user.about.picture;
-      // -----
+        // -----
+        now.username = usr.about.name;
+        now.picture  = usr.about.picture;
+        // -----
 
-      // file groups starts out empty.
-      this.user.grouplist = [];
+        // file groups starts out empty.
+        usr.grouplist = [];
 
-      // the blank file group is the the team group.
-      fg.addUserToFileGroup(this.user, "");
+        // the blank file group is the the team group.
+        fg.addUserToFileGroup(usr, "");
+
+        // Confirm the project to the user
+        now.c_confirmProject(usr.TEAM_ID);
+      }
+    });
 
 
-      // var output = '';
-      // var object = this.now;
-      // for (property in object) {
-      //   output += property + ': ' + object[property]+'; ';
-      // }
-      // console.warn(output);
-
-      // Confirm the project to the user
-      this.now.c_confirmProject(this.user.TEAM_ID);
-    }
   });
 
   nowjs.on('disconnect', function () {
@@ -181,7 +178,7 @@ this.route = function() {
     var fromUserId = this.user.clientId;
     var fromUserName = this.now.username;
     var date = moment().format('HH:mm');
-    var pic = this.now.picture;
+    var pic  = this.now.picture;
     teamgroup.now.c_receiveGlobalChatChat(message, fromUserId, fromUserName, date, pic);
   };
 
@@ -193,7 +190,7 @@ this.route = function() {
     var fromUserName = this.now.username;
     var date = moment().format('HH:mm');
     var pic = this.now.picture;
-    funcgroup.now.c_receiveFuncChat(fname, message, fromUserId, fromUserName, date, pic);
+    funcgroup.now.c_receiveFuncChat(fname, funcName, message, fromUserId, fromUserName, date, pic);
   };
 
 
