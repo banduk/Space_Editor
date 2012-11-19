@@ -1,10 +1,3 @@
-var redisClient = require('redis').createClient();
-
-redisClient.on('ready', function(){
-  Nohm.setPrefix('space_editor');
-  Nohm.setClient(redisClient);
-});
-
 /**
  * Given a password and salt this creates an SHA512 hash.
  */

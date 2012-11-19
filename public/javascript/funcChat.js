@@ -29,18 +29,7 @@ $(document).ready(function() {
   });
 });
 
-now.c_addFuncToChatPane = function(fname, funcName){
-  if($("#funcChat").attr("fname") !== fname || $("#funcChat").attr("funcname") !== funcName){
-    $("#funcChat").empty();
-    $("#funcChat").attr("fname", fname)
-    $("#funcChat").attr("funcname", funcName);
-    $("#topFileName").text(fname + " :: ");
-    $("#topFuncName").text(funcName);
-  }
-}
-
-// TODO: AutoScroll
-now.c_receiveFuncChat = function(fname, funcName, message, fromUserId, fromUserName, time, fromUserImg){
+function addChatToFunctionChat(fname, funcName, message, fromUserId, fromUserName, time, fromUserImg){
   var msg = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
   if($("#funcChat").attr("fname") == fname && $("#funcChat").attr("funcname") == funcName)
     $("#funcChat").append(
@@ -53,6 +42,34 @@ now.c_receiveFuncChat = function(fname, funcName, message, fromUserId, fromUserN
       +   "<div style='clear:both'></div>"
       + "</div>"
     );
+}
+
+now.c_addFuncToChatPane = function(fname, funcName, doc, chats){
+  // console.log(JSON.stringify("DOC: " + JSON.stringify(doc)));
+  // console.log(JSON.stringify("CHATS: " + JSON.parse(chats)));
+
+  if($("#funcChat").attr("fname") !== fname || $("#funcChat").attr("funcname") !== funcName){
+    $("#funcChat").empty();
+    $("#funcChat").attr("fname", fname)
+    $("#funcChat").attr("funcname", funcName);
+    $("#topFileName").text(fname + " :: ");
+    $("#topFuncName").text(funcName);
+
+    console.log(JSON.stringify(chats));
+
+    for(chat in chats) {
+      console.log(chats[chat]);
+      addChatToFunctionChat(fname, funcName, chats[chat].message, chats[chat].user, chats[chat].user, chats[chat].date, "/img/profile/"+chats[chat].userPic +".jpg");
+    }
+  }
+
+}
+
+
+
+// TODO: AutoScroll
+now.c_receiveFuncChat = function(fname, funcName, message, fromUserId, fromUserName, time, fromUserImg){
+  addChatToFunctionChat(fname, funcName, message, fromUserId, fromUserName, time, fromUserImg)
 };
 
 // TODO: AutoScroll

@@ -34,6 +34,7 @@ this.config = function() {
         // -----
         now.username = usr.about.name;
         now.picture  = usr.about.picture;
+        now.email    = u.email;
         // -----
 
         // file groups starts out empty.
@@ -191,6 +192,10 @@ this.route = function() {
     var date = moment().format('HH:mm');
     var pic = this.now.picture;
     funcgroup.now.c_receiveFuncChat(fname, funcName, message, fromUserId, fromUserName, date, pic);
+
+    var email = this.now.email;
+    var fullDate = moment().format();
+    docs.addChatToFunction(this.user.TEAM_ID, fname, funcName, message, email, fullDate);
   };
 
 

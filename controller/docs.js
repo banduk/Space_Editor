@@ -1,4 +1,7 @@
-
+var Func     = require('./../model/doc/functionDocModel');
+var FuncChat = require('./../model/doc/functionChatDocModel');
+var File     = require('./../model/doc/fileDocModel');
+var Proj     = require('./../model/doc/projectDocModel');
 
 /**
  * Documentation stuff (scoped chat ...)
@@ -31,17 +34,26 @@ module.exports = function(){
             // Notice that line starts at 0 and node.start.line at 1
             if((line == node.start.line)){
               nowjs.getClient(userObj.clientId, function(){
-                if(this.now === undefined){
+                var self = this;
+                if(self.now === undefined){
                   console.log("Undefined clientId for checkScopeNCreateChat" + userObj.clientId);
                 }else{
-
-
-
-
-
-                  // Lets start using the fileGroup =)
-                  // this.addUserToFuncGroup(userObj, fname, node.name.name)
-                  this.now.c_addFuncToChatPane(fname, node.name.name);
+                  getFuncDoc(userObj.TEAM_ID, fname, node, function(doc){
+                    if(!doc){
+                      //create doc and send to user
+                      createFuncDoc(userObj.TEAM_ID, fname, node.name.name, function(doc){
+                        if(!doc) console.error("error while creating function docs");
+                        else{
+                          self.now.c_addFuncToChatPane(fname, node.name.name, doc.cleanData(), {});
+                        }
+                      });
+                    }else{
+                      //send doc to user
+                      getChatsByFunction(userObj.TEAM_ID, fname, node.name.name, function(chats){
+                        self.now.c_addFuncToChatPane(fname, node.name.name, doc.cleanData(), chats);
+                      });
+                    }
+                  });
                   // Stop searching if found
                   return true;
                 }
@@ -57,6 +69,61 @@ module.exports = function(){
         // TODO: find a way to parse the file even when not valid
         console.log("The file is not valid, cannot parse...");
       }
+    });
+  }
+
+  var getFuncDoc = function(team, fname, node, callback){
+    var funcFullName = team+"/"+fname+"::"+node.name.name;
+    var func = Nohm.factory('Function');
+    func.findByName(funcFullName, function(err, funcDoc){
+      if(err){
+        console.log(err);
+        callback(false);
+      }
+      else{
+        callback(funcDoc);
+      }
+    });
+  }
+
+  var createFuncDoc = function(team, fname, funcname, callback){
+    var funcFullName = team+"/"+fname+"::"+funcname;
+    var func = Nohm.factory('Function');
+    var data = {
+      name        : funcFullName,
+      description : fname,
+      params      : {},
+      chats       : {}
+    }
+    func.create(data, callback);
+  }
+
+  var getChatsByFunction = function(team, fname, funcname, callback){
+    var funcFullName = team+"/"+fname+"::"+funcname;
+    var func = Nohm.factory('FuncChat');
+    func.findByFunction(funcFullName, function(err, chats){
+      if(err){
+        console.log(err);
+        callback({});
+      }
+      else {
+        callback(chats);
+      }
+
+    });
+  }
+
+  this.addChatToFunction = function(team, fname, funcName, message, email, date){
+    var funcFullName = team+"/"+fname+"::"+funcName;
+    var func = Nohm.factory('Function');
+    var data = {
+      funct     : funcFullName,
+      user      : email,
+      message   : message,
+      date      : date
+    }
+    func.addChat(data, function(chat){
+      console.log("added a chat from " + email + " to the docs");
     });
   }
 }
@@ -173,3 +240,4 @@ module.exports = function(){
   //     }
   //   });
   // }
+

@@ -105,6 +105,12 @@ fs      = require('fs');
 moment  = require('moment');
 uglJs   = require("uglify-js2");
 Nohm    = require('nohm').Nohm;
+redisClient = require('redis').createClient();
+
+redisClient.on('ready', function(){
+  Nohm.setPrefix('space_editor');
+  Nohm.setClient(redisClient);
+});
 
 var Util       = require('./controller/util')
   , FileGroup  = require('./controller/fileGroup')
