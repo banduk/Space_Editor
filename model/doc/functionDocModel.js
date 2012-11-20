@@ -1,7 +1,4 @@
 
-
-
-
 module.exports = Nohm.model('Function', {
   idGenerator: 'increment',
   properties: {
@@ -19,21 +16,11 @@ module.exports = Nohm.model('Function', {
         'notEmpty'
       ]
     },
-    // parent:{
-    //   type: 'Function',
-    //   validations: []
-    // },
     params: {
       type: 'json',
       unique: false,
       validations: []
-    },
-    chats:{
-      type: 'json',
-      unique: false,
-      validations: []
-    },
-
+    }
   },
   methods: {
     findByName: function(name, callback){
@@ -42,7 +29,7 @@ module.exports = Nohm.model('Function', {
         if (ids.length === 0) callback(new Error('No functions with this name in the docs'));
         else{
           self.load(ids[0], function (err) {
-            if (err) callback(new Error('Error while loading function data'));
+            if (err) callback(err);
             else{
               callback(null, this);
             }
@@ -52,40 +39,38 @@ module.exports = Nohm.model('Function', {
     },
     create: function (data, callback) {
       var self = this;
-      this.p(data);
-      this.save(function () {
-        callback.apply(self.cleanData());
+      self.p(data);
+      self.save(function (err) {
+        if(err) callback(err);
+        else callback(null, self);
       });
     },
     addChat: function(chat, callback){
       var self = this;
-      this.findByName(chat.funct, function(fDoc){
+      this.findByName(chat.funct, function(err, fDoc){
+        if(err) callback(err);
+        else{
+          var funcChat = Nohm.factory('FuncChat');
+          funcChat.create(chat, function(fChat){
+            if(!fChat) callback(new Error('Error while creating chat'));
+            else{
+              fDoc.link(fChat, {
+                name: 'hasChat',
+                error: function (error_mesage, validation_errors, object) {
+                  callback(new Error(error_message));
+                }
+              });
+              fDoc.save(function (err, is_link_error, link_error_model_name) {
+                if ( ! err) {
+                  callback(null, fChat.fullProps());
+                } else {
+                  callback(err);
+                }
+              });
 
-        var funcChat = Nohm.factory('FuncChat');
-        funcChat.create(chat, function(fChat){
-
-          if(!fChat) callback(false);
-          else{
-            // var newFdoc = fDoc.cleanData();
-            // var chats = JSON.parse(newFdoc.chats);
-
-            // var chatToAdd = fChat.cleanData;
-            // chats[chatToAdd.date] = chatToAdd;
-
-            // newFdoc.chats = chats;
-            // newFdoc.save;
-
-            callback(fChat.cleanData);
-          }
-        });
-        // console.log(JSON.stringify(fDoc));
-        // func.create(data, callback);
-
-        // fDoc.
-
-        // fDoc.properties.chats.value[chat.date] = chat;
-        // console.log(fDoc);
-        // fDoc.save(callback(fDoc));
+            }
+          });
+        }
       });
     },
     cleanData: function(stringify){
@@ -94,8 +79,7 @@ module.exports = Nohm.model('Function', {
       var cleanData = {
         name:         properties.name.value,
         description:  properties.description.value,
-        params:       properties.params.value,
-        chats:        properties.chats.value
+        params:       properties.params.value
       }
 
       return stringify ? JSON.stringify(cleanData) : cleanData;

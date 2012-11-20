@@ -78,8 +78,6 @@ this.route = function() {
     var userObj = this.user;
     var filegroup = nowjs.getGroup(userObj.TEAM_ID+"/"+fname);
 
-    // docs.checkScopeNCreateChat(userObj, fname, range);
-
     var _usersIngroup = "";
     var users = filegroup.users;
     for (userInUsers in users) {
