@@ -46,7 +46,16 @@ http://chaoscollective.org/projects/builtinspace.html
 
 ## Libraries/Platforms used
  - NodeJS
+ - Express
  - NowJS
  - ACE
  - diff-match-patch
+ - Nohm
+ - Redis
+ - Underscore
+ - Walk
+ - Ejs
+ - Moment
+ - Uglify-js2
+ - 
 
